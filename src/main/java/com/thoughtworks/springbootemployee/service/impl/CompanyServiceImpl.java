@@ -39,7 +39,10 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void updateCompany(Company companyDTO) {
-        Company company = companyList.stream().filter(e -> e.getId() == companyDTO.getId()).findFirst().get();
+        Company company = companyList.stream()
+                .filter(e -> e.getId() == companyDTO.getId())
+                .findFirst()
+                .get();
         company.setName(companyDTO.getName());
         company.setEmployeeList(companyDTO.getEmployeeList());
     }
