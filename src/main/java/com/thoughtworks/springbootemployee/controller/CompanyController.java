@@ -31,4 +31,9 @@ public class CompanyController {
         companyService.deleteCompanyEmployeeById(id);
     }
 
+    @PutMapping(path = "/companies")
+    public void updateCompany(@RequestBody Company company) {
+        companyService.updateCompany(company);
+    }
+
 }

@@ -10,4 +10,5 @@ public interface CompanyService {
     void addCompany(Company company);
     Company getCompanyById(int id);
     void deleteCompanyEmployeeById(int id);
+    void updateCompany(Company company);
 }
