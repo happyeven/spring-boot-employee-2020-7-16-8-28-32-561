@@ -4,23 +4,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Company {
-    private int ID;
+    private int id;
+    private String name;
     private List<Employee> employeeList;
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public List<Employee> getEmployeeList() {
         return employeeList;
     }
 
-    public Company(int ID) {
-        this.ID = ID;
-        employeeList = new ArrayList<>();
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
+    }
+
+    public Company(int id, String name, List<Employee> employeeList) {
+        this.id = id;
+        this.name = name;
+        this.employeeList = employeeList;
+    }
+
+    public Company() {
     }
 }
