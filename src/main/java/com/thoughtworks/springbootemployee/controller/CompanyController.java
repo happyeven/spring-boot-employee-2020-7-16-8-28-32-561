@@ -19,7 +19,6 @@ public class CompanyController {
 
     @GetMapping(path = "/companies")
     public List<Company> getCompany(@RequestParam(required = false,defaultValue = "0") Integer page, @RequestParam(required = false,defaultValue = "0")Integer pageSize) {
-        System.out.println(page);
         if (page == 0 && pageSize == 0) {
             return companyService.getALLCompany();
         }

@@ -11,4 +11,6 @@ public interface EmployeeService {
     void updateEmployee(Employee employeeDTO);
     Employee queryEmployee(int id);
     List<Employee> getAllEmployee();
+    List<Employee> getEmployeeByGender(String gender);
+    List<Employee> getEmployeeInPage(Integer page, Integer pageSize);
 }

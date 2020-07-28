@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -46,5 +47,23 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> getAllEmployee() {
         return employeeList;
+    }
+
+    @Override
+    public List<Employee> getEmployeeByGender(String gender) {
+        return employeeList.stream().filter(e -> gender.equals(e.getGender())).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Employee> getEmployeeInPage(Integer page, Integer pageSize) {
+        int startIndex = page * pageSize - pageSize;
+        if (employeeList.size() <= startIndex) {
+            return null;
+        }
+        int endIndex = page * pageSize - 1;
+        if (employeeList.size() > startIndex && employeeList.size() <= endIndex) {
+            return employeeList.subList(startIndex, employeeList.size());
+        }
+        return employeeList.subList(startIndex, endIndex + 1);
     }
 }
