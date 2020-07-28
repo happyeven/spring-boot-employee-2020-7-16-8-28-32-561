@@ -25,13 +25,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void updateEmployee(Employee employeeDTO) {
-        for (Employee employee : this.employeeList) {
-            if (employee.getId() == employeeDTO.getId()) {
-                employee.setAge(employeeDTO.getAge());
-                employee.setGender(employeeDTO.getGender());
-                employee.setName(employeeDTO.getName());
-            }
+        Employee employee = employeeList.stream().filter(e -> e.getId() == employeeDTO.getId()).findFirst().orElse(null);
+        if (employee == null) {
+            return;
         }
+        employee.setAge(employeeDTO.getAge());
+        employee.setGender(employeeDTO.getGender());
+        employee.setName(employeeDTO.getName());
     }
 
     @Override
