@@ -36,12 +36,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee queryEmployee(int id) {
-        for (Employee employee : employeeList) {
-            if (employee.getId() == id) {
-                return employee;
-            }
-        }
-        return null;
+        return employeeList.stream()
+                .filter(e -> e.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
