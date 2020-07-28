@@ -21,4 +21,9 @@ public class CompanyController {
         return companyService.getALLCompany();
     }
 
+    @GetMapping(path = "/companies/{id}")
+    public Company getCompany(@PathVariable int id) {
+        return companyService.getCompanyById(id);
+    }
+
 }

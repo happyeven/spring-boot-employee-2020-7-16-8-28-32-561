@@ -23,6 +23,10 @@ public class CompanyServiceImpl implements CompanyService {
         this.companyList.add(company);
     }
 
+    @Override
+    public Company getCompanyById(int id) {
+        return companyList.stream().filter(e -> e.getId() == id).findFirst().get();
+    }
 
 
 }
