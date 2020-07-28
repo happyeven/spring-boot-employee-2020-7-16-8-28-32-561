@@ -51,8 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> getEmployeeByGender(String gender) {
         return employeeList.stream()
                 .filter(e -> gender.equals(e.getGender()))
-                .collect(Collectors
-                        .toList());
+                .collect(Collectors.toList());
     }
 
     @Override
