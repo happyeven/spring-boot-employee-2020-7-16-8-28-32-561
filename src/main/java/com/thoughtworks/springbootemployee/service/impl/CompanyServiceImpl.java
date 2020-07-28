@@ -25,7 +25,9 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public Company getCompanyById(int id) {
-        return companyList.stream().filter(e -> e.getId() == id).findFirst().get();
+        return companyList.stream().filter(e -> e.getId() == id)
+                .findFirst()
+                .get();
     }
 
     @Override
