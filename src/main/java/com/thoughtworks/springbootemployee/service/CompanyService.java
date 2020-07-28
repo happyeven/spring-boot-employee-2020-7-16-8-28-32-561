@@ -9,5 +9,5 @@ public interface CompanyService {
     List<Company> getALLCompany();
     void addCompany(Company company);
     Company getCompanyById(int id);
-    void deleteCompanyById(int id);
+    void deleteCompanyEmployeeById(int id);
 }

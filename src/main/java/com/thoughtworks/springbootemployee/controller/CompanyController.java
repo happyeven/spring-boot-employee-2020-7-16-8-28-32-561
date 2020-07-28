@@ -28,7 +28,7 @@ public class CompanyController {
 
     @DeleteMapping(path = "/companies/{id}")
     public void deleteCompany(@PathVariable int id) {
-        companyService.deleteCompanyById(id);
+        companyService.deleteCompanyEmployeeById(id);
     }
 
 }

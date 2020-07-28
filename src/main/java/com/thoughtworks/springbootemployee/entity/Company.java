@@ -40,4 +40,8 @@ public class Company {
 
     public Company() {
     }
+
+    public void deleteAllEmployee() {
+        this.employeeList.clear();
+    }
 }
