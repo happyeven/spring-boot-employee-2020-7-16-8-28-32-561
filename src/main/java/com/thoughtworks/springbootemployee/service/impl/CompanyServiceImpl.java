@@ -40,5 +40,10 @@ public class CompanyServiceImpl implements CompanyService {
         company.setEmployeeList(companyDTO.getEmployeeList());
     }
 
+    @Override
+    public List<Employee> getEmployeeFromCompany(int id) {
+        return companyList.stream().filter(e -> e.getId() == id).findFirst().get().getEmployeeList();
+    }
+
 
 }

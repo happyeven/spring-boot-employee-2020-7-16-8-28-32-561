@@ -11,4 +11,5 @@ public interface CompanyService {
     Company getCompanyById(int id);
     void deleteCompanyEmployeeById(int id);
     void updateCompany(Company company);
+    List<Employee> getEmployeeFromCompany(int id);
 }
