@@ -45,5 +45,16 @@ public class CompanyServiceImpl implements CompanyService {
         return companyList.stream().filter(e -> e.getId() == id).findFirst().get().getEmployeeList();
     }
 
-
+    @Override
+    public List<Company> getCompanyInPages(Integer page, Integer pageSize) {
+        int startIndex = page * pageSize - pageSize;
+        if (companyList.size() <= startIndex) {
+            return null;
+        }
+        int endIndex = page * pageSize - 1;
+        if (companyList.size() > startIndex && companyList.size() <= endIndex) {
+            return companyList.subList(startIndex, companyList.size());
+        }
+        return companyList.subList(startIndex, endIndex + 1);
+    }
 }
