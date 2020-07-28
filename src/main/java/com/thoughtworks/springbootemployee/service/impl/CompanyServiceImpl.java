@@ -32,7 +32,9 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void deleteCompanyEmployeeById(int id) {
-        companyList.stream().filter(e -> e.getId() == id).findFirst().get().deleteAllEmployee();
+        companyList.stream().filter(e -> e.getId() == id)
+                .findFirst().get()
+                .deleteAllEmployee();
     }
 
     @Override
