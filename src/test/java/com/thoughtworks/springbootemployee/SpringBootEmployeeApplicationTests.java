@@ -4,8 +4,6 @@ import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
-import com.thoughtworks.springbootemployee.service.CompanyService;
-import com.thoughtworks.springbootemployee.service.EmployeeService;
 import com.thoughtworks.springbootemployee.service.impl.CompanyServiceImpl;
 import com.thoughtworks.springbootemployee.service.impl.EmployeeServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -14,9 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +79,6 @@ class SpringBootEmployeeApplicationTests {
 	@Test
 	void should_return_1_when_find_by_gender_given_one_male_one_female() {
 		//given
-		int employeeId = 1;
 		List<Employee> list = new ArrayList<>();
 		Employee employee = new Employee("Female", 1, 4, "111");
 		Employee employee1 = new Employee("Male", 2, 4, "111");

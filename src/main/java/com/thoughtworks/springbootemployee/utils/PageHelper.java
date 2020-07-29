@@ -1,7 +1,5 @@
 package com.thoughtworks.springbootemployee.utils;
 
-import com.thoughtworks.springbootemployee.entity.Employee;
-
 import java.util.List;
 
 public class PageHelper {

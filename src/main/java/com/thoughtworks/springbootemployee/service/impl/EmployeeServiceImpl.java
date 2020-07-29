@@ -3,7 +3,6 @@ package com.thoughtworks.springbootemployee.service.impl;
 import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
 import com.thoughtworks.springbootemployee.dto.EmployeeRequestDTO;
-import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
@@ -11,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
