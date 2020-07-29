@@ -106,5 +106,23 @@ class SpringBootEmployeeApplicationTests {
 		//then
 		assertEquals(list.size(), result.size());
 	}
+	@Test
+	void should_return_employees_list_when_getEmployeeFromCompany_given_id_1() {
+		//given
 
+		Company company = new Company(1,"111");
+
+
+		List<Employee> employees = new ArrayList<>();
+		employees.add(new Employee(1, 1, "htw", "Male",company));
+		employees.add(new Employee(2, 2, "lmh", "Male",company));
+		company.setEmployeeList(employees);
+		Mockito.when(companyRepository.findById(1)).thenReturn(java.util.Optional.of(company));
+
+		//when
+		List<Employee> result = companyService.getEmployeeFromCompany(1);
+
+		//then
+		assertEquals(2, result.size());
+	}
 }
