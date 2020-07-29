@@ -14,6 +14,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,10 +52,25 @@ class SpringBootEmployeeApplicationTests {
 		Employee employee = new Employee("Female", 1, 4, "111");
 		list.add(employee);
 		Mockito.when(employeeRepository.findById(employeeId)).thenReturn(java.util.Optional.of(employee));
-
 		//when
 		Employee result = employeeService.findEmployeeById(employeeId);
 		//then
 		assertEquals(employeeId, employee.getId());
 	}
+
+	@Test
+	void should_return_0_when_delete_employee_given_one_employee() {
+		//given
+		int employeeId = 1;
+		List<Employee> list = new ArrayList<>();
+		Employee employee = new Employee("Female", employeeId, 4, "111");
+		list.add(employee);
+		Mockito.when(employeeRepository.findAll()).thenReturn(list);
+		//when
+		Employee result = employeeService.deleteEmployee(employeeId);
+		//then
+		assertEquals(0, employeeService.getAllEmployee().size());
+	}
+
+
 }
