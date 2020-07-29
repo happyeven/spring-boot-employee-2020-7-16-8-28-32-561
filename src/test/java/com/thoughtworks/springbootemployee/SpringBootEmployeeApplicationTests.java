@@ -65,19 +65,6 @@ class SpringBootEmployeeApplicationTests {
 		assertEquals(employeeId, result.getId());
 	}
 
-	@Test
-	void should_return_0_when_delete_employee_given_one_employee() {
-		//given
-		int employeeId = 1;
-		List<Employee> list = new ArrayList<>();
-		Employee employee = new Employee("Female", employeeId, 4, "111");
-		list.add(employee);
-		Mockito.when(employeeRepository.findById(employeeId)).thenReturn(java.util.Optional.of(employee));
-		//when
-		employeeService.deleteEmployee(employeeId);
-		//then
-		assertEquals(0, employeeService.getAllEmployee().size());
-	}
 
 	@Test
 	void should_return_oocl_company_when_getCompanyById_given_1() {
