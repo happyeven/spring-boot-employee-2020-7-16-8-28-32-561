@@ -2,43 +2,38 @@ package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
+import org.aspectj.apache.bcel.classfile.Module;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-
+@RequestMapping(path = "/employees")
 public class EmployeeController {
+
     @Autowired
     EmployeeService employeeService;
 
-    @PostMapping(path = "/employees")
-    public void addEmployee(@RequestBody Employee employee) {
-        employeeService.addEmployee(employee);
+    @GetMapping
+    public List<Employee> getAllEmployees() {
+        return employeeService.getAllEmployee();
     }
 
-    @GetMapping(path = "/employees")
-    public List<Employee> getEmployee(@RequestParam(required = false) String gender
-                                    , @RequestParam(required = false) Integer page
-                                    , @RequestParam(required = false)Integer pageSize) {
-        if (page == null && pageSize == null) {
-            return employeeService.getEmployeeByGender(gender);
-        }
-        if (!StringUtils.isEmpty(gender)) {
-            return employeeService.getAllEmployee();
-        }
-        return employeeService.getEmployeeInPage(page, pageSize);
+    @GetMapping(params = "id")
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Employee findEmployee(@RequestParam int id) {
+        return employeeService.findEmployeeById(id);
     }
 
-    @DeleteMapping(path = "/employees/{id}")
-    public void deleteEmployee(@PathVariable int id) {
-        employeeService.deleteEmployee(id);
+    @GetMapping(params = {"size","page"})
+    public Page<Employee> getAllEmployees(@PageableDefault(size = 1) Pageable pageable) {
+        return employeeService.getAllEmployee(pageable);
     }
 
-    @PutMapping(path = "/employees")
-    public void updateEmployee(@RequestBody Employee employee) {
-        employeeService.updateEmployee(employee);
-    }
 }

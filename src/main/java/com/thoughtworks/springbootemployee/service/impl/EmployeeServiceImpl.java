@@ -2,9 +2,12 @@ package com.thoughtworks.springbootemployee.service.impl;
 
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
 import com.thoughtworks.springbootemployee.entity.Employee;
+import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
 import com.thoughtworks.springbootemployee.utils.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -14,63 +17,21 @@ import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
-    List<Employee> employeeList = new ArrayList<>();
-
-    EmployeeRepository employeeRepository;
-
-    @Override
-    public void addEmployee(Employee employee) {
-        employeeList.add(employee);
-    }
-
-    @Override
-    public void deleteEmployee(int employeeID) {
-        employeeList.remove(employeeList.stream()
-                .filter(e -> e.getId() == employeeID)
-                .findFirst()
-                .orElse(null));
-    }
-
-    @Override
-    public void updateEmployee(Employee employeeDTO) {
-        Employee employee = employeeList.stream()
-                .filter(e -> e.getId() == employeeDTO.getId())
-                .findFirst()
-                .orElse(null);
-        if (employee == null) {
-            return;
-        }
-        employee.setAge(employeeDTO.getAge());
-        employee.setGender(employeeDTO.getGender());
-        employee.setName(employeeDTO.getName());
-    }
-
-    @Override
-    public Employee queryEmployee(int id) {
-        List<Employee> employeeList = employeeRepository.findAll();
-        return employeeList.stream()
-                .filter(e -> e.getId() == id)
-                .findFirst()
-                .orElse(null);
-    }
-
-    @Override
     public List<Employee> getAllEmployee() {
         return employeeRepository.findAll();
     }
 
     @Override
-    public List<Employee> getEmployeeByGender(String gender) {
-        List<Employee> employeeList = employeeRepository.findAll();
-        return employeeList.stream()
-                .filter(e -> gender.equals(e.getGender()))
-                .collect(Collectors.toList());
+    public Employee findEmployeeById(int id) {
+        return employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
     }
 
     @Override
-    public List<Employee> getEmployeeInPage(Integer page, Integer pageSize) {
-        List<Employee> employeeList = employeeRepository.findAll();
-        return PageHelper.PageHelper(page, pageSize, employeeList);
+    public Page<Employee> getAllEmployee(Pageable pageable) {
+        return employeeRepository.findAll(pageable);
     }
+
 }

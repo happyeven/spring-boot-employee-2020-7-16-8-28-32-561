@@ -1,23 +1,24 @@
 package com.thoughtworks.springbootemployee.entity;
 
-import java.util.ArrayList;
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "company")
 public class Company {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int companyId;
     private String name;
+    @OneToMany(mappedBy = "company")
     private List<Employee> employeeList;
 
-    public int getId() {
-        return id;
+    public int getCompanyId() {
+        return companyId;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public List<Employee> getEmployeeList() {
-        return employeeList;
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
     }
 
     public String getName() {
@@ -28,20 +29,12 @@ public class Company {
         this.name = name;
     }
 
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
-    }
 
-    public Company(int id, String name, List<Employee> employeeList) {
-        this.id = id;
+    public Company(int id, String name) {
+        this.companyId = id;
         this.name = name;
-        this.employeeList = employeeList;
     }
 
     public Company() {
-    }
-
-    public void deleteAllEmployee() {
-        this.employeeList.clear();
     }
 }
