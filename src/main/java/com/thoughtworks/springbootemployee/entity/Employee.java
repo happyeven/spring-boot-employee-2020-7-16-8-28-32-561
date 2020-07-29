@@ -49,6 +49,9 @@ public class Employee {
     }
 
 
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 
     public Employee(String gender, int id, int age, String name, int companyId) {
         this.gender = gender;

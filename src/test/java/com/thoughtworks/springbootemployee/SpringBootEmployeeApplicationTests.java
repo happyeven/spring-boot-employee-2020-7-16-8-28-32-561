@@ -67,7 +67,7 @@ class SpringBootEmployeeApplicationTests {
 		list.add(employee);
 		Mockito.when(employeeRepository.findAll()).thenReturn(list);
 		//when
-		Employee result = employeeService.deleteEmployee(employeeId);
+		employeeService.deleteEmployee(employeeId);
 		//then
 		assertEquals(0, employeeService.getAllEmployee().size());
 	}
