@@ -3,6 +3,7 @@ package com.thoughtworks.springbootemployee.controller;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,15 +20,14 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/employees")
-    public List<Employee> getEmployee(@RequestParam(required = false
-                                    , defaultValue = "0") String gender
-                                    , @RequestParam(required = false,defaultValue = "0") Integer page
-                                    , @RequestParam(required = false,defaultValue = "0")Integer pageSize) {
-        if ("0".equals(gender) && page == 0 && pageSize == 0) {
-            return employeeService.getAllEmployee();
-        }
-        if (page == 0 && pageSize == 0) {
+    public List<Employee> getEmployee(@RequestParam(required = false) String gender
+                                    , @RequestParam(required = false) Integer page
+                                    , @RequestParam(required = false)Integer pageSize) {
+        if (page == null && pageSize == null) {
             return employeeService.getEmployeeByGender(gender);
+        }
+        if (!StringUtils.isEmpty(gender)) {
+            return employeeService.getAllEmployee();
         }
         return employeeService.getEmployeeInPage(page, pageSize);
     }

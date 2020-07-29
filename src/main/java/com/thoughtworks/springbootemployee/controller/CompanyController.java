@@ -18,9 +18,8 @@ public class CompanyController {
     }
 
     @GetMapping(path = "/companies")
-    public List<Company> getCompany(@RequestParam(required = false,defaultValue = "0") Integer page
-                                    , @RequestParam(required = false
-                                    ,defaultValue = "0")Integer pageSize) {
+    public List<Company> getCompany(@RequestParam(required = false) Integer page
+                                    , @RequestParam(required = false)Integer pageSize) {
         if (page == 0 && pageSize == 0) {
             return companyService.getALLCompany();
         }

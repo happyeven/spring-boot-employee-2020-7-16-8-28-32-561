@@ -4,6 +4,7 @@ import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.service.CompanyService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,16 +29,18 @@ public class CompanyServiceImpl implements CompanyService {
         return companyList.stream()
                 .filter(e -> e.getId() == id)
                 .findFirst()
-                .get();
+                .orElse(null);
     }
 
     @Override
     public void deleteCompanyEmployeeById(int id) {
-        companyList.stream()
+        Company company = companyList.stream()
                 .filter(e -> e.getId() == id)
-                .findFirst()
-                .get()
-                .deleteAllEmployee();
+                .findFirst().orElse(null);
+        if (company == null) {
+            return;
+        }
+        company.deleteAllEmployee();
     }
 
     @Override
@@ -45,18 +48,21 @@ public class CompanyServiceImpl implements CompanyService {
         Company company = companyList.stream()
                 .filter(e -> e.getId() == companyDTO.getId())
                 .findFirst()
-                .get();
+                .orElse(null);
+        if (company == null) {
+            return;
+        }
         company.setName(companyDTO.getName());
         company.setEmployeeList(companyDTO.getEmployeeList());
     }
 
     @Override
     public List<Employee> getEmployeeFromCompany(int id) {
-        return companyList.stream()
+        Company company =  companyList.stream()
                 .filter(e -> e.getId() == id)
                 .findFirst()
-                .get()
-                .getEmployeeList();
+                .orElse(null);
+        return company.getEmployeeList();
     }
 
     @Override
