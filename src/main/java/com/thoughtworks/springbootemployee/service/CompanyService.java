@@ -6,5 +6,5 @@ import com.thoughtworks.springbootemployee.entity.Employee;
 import java.util.List;
 
 public interface CompanyService {
-
+    Company getCompanyById(Integer id);
 }
