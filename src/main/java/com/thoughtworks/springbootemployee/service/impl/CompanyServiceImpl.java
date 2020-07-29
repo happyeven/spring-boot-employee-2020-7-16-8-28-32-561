@@ -35,7 +35,8 @@ public class CompanyServiceImpl implements CompanyService {
     public void deleteCompanyEmployeeById(int id) {
         companyList.stream()
                 .filter(e -> e.getId() == id)
-                .findFirst().get()
+                .findFirst()
+                .get()
                 .deleteAllEmployee();
     }
 
@@ -53,7 +54,8 @@ public class CompanyServiceImpl implements CompanyService {
     public List<Employee> getEmployeeFromCompany(int id) {
         return companyList.stream()
                 .filter(e -> e.getId() == id)
-                .findFirst().get()
+                .findFirst()
+                .get()
                 .getEmployeeList();
     }
 
