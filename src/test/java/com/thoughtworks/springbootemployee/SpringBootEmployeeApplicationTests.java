@@ -80,4 +80,20 @@ class SpringBootEmployeeApplicationTests {
 		assertEquals("oocl", result.getName());
 	}
 
+	@Test
+	void should_return_1_when_find_by_gender_given_one_male_one_female() {
+		//given
+		int employeeId = 1;
+		List<Employee> list = new ArrayList<>();
+		Employee employee = new Employee("Female", 1, 4, "111");
+		Employee employee1 = new Employee("Male", 2, 4, "111");
+		list.add(employee);
+		list.add(employee1);
+		Mockito.when(employeeRepository.findAll()).thenReturn(list);
+		//when
+		List<Employee> result = employeeService.findEmployeeByGender("Male");
+		//then
+		assertEquals(1, result.size());
+	}
+
 }
