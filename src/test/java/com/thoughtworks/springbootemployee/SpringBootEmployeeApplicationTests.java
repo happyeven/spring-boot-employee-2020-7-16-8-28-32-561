@@ -91,4 +91,20 @@ class SpringBootEmployeeApplicationTests {
 		assertEquals(1, result.size());
 	}
 
+	@Test
+	void should_return_2_company_when_getAllCompany() {
+
+		//given
+		List<Company> list = new ArrayList<>();
+		list.add(new Company(1, "oocl"));
+		list.add(new Company(2, "tw"));
+		Mockito.when(companyRepository.findAll()).thenReturn(list);
+
+		//when
+		List<Company> result = companyService.getALLCompanies();
+
+		//then
+		assertEquals(list.size(), result.size());
+	}
+
 }
