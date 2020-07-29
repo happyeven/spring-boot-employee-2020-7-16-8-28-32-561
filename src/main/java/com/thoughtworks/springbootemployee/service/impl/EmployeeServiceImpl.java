@@ -27,7 +27,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void updateEmployee(Employee employeeDTO) {
-        Employee employee = employeeList.stream().filter(e -> e.getId() == employeeDTO.getId()).findFirst().orElse(null);
+        Employee employee = employeeList.stream()
+                .filter(e -> e.getId() == employeeDTO.getId())
+                .findFirst()
+                .orElse(null);
         if (employee == null) {
             return;
         }
