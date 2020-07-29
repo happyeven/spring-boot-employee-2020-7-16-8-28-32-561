@@ -42,4 +42,18 @@ class SpringBootEmployeeApplicationTests {
 		assertEquals(2,result.size());
 	}
 
+	@Test
+	void should_return_employee_when_find_by_id_given_employee_id() {
+		//given
+		int employeeId = 1;
+		List<Employee> list = new ArrayList<>();
+		Employee employee = new Employee("Female", 1, 4, "111");
+		list.add(employee);
+		Mockito.when(employeeRepository.findById(employeeId)).thenReturn(java.util.Optional.of(employee));
+
+		//when
+		Employee result = employeeService.findEmployeeById(employeeId);
+		//then
+		assertEquals(employeeId, employee.getId());
+	}
 }
