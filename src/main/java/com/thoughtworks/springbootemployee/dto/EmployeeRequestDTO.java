@@ -60,6 +60,6 @@ public class EmployeeRequestDTO {
     public EmployeeRequestDTO() {
     }
     public Employee toEntity() {
-        return new Employee(gender, id, age, name, companyId);
+        return new Employee(gender, id, age, name);
     }
 }

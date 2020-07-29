@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.controller;
 
+import com.thoughtworks.springbootemployee.dto.EmployeeRequestDTO;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.aspectj.apache.bcel.classfile.Module;
@@ -41,5 +42,9 @@ public class EmployeeController {
         employeeService.deleteEmployee(id);
     }
 
+    @PutMapping(path = "/{id}")
+    public void updateEmployee(@PathVariable int id, @RequestBody EmployeeRequestDTO employeeRequestDTO) {
+        employeeService.updateEmployee(employeeRequestDTO);
+    }
 
 }
