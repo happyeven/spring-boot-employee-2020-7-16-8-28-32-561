@@ -18,7 +18,9 @@ public class CompanyController {
     }
 
     @GetMapping(path = "/companies")
-    public List<Company> getCompany(@RequestParam(required = false,defaultValue = "0") Integer page, @RequestParam(required = false,defaultValue = "0")Integer pageSize) {
+    public List<Company> getCompany(@RequestParam(required = false,defaultValue = "0") Integer page
+                                    , @RequestParam(required = false
+                                    ,defaultValue = "0")Integer pageSize) {
         if (page == 0 && pageSize == 0) {
             return companyService.getALLCompany();
         }
@@ -44,13 +46,4 @@ public class CompanyController {
     public List<Employee> getEmployeeFromCompany(@PathVariable int id) {
         return companyService.getEmployeeFromCompany(id);
     }
-
-
-//    @GetMapping(path = "/companies?page={page}&pageSize={pageSize}")
-//    public List<Company> getCompanyInPage(@PathVariable int page, int pageSize) {
-//        if (page == 0 && pageSize == 0) {
-//            return companyService.getALLCompany();
-//        }
-//        return companyService.getCompanyInPages(page, pageSize);
-//    }
 }
