@@ -2,6 +2,7 @@ package com.thoughtworks.springbootemployee;
 
 import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
+import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.service.CompanyService;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
@@ -27,8 +28,14 @@ class SpringBootEmployeeApplicationTests {
 	@Mock
 	private EmployeeRepository employeeRepository;
 
+	@Mock
+	private CompanyRepository companyRepository;
+
 	@InjectMocks
 	private EmployeeServiceImpl employeeService;
+
+	@InjectMocks
+	private CompanyServiceImpl companyService;
 
 	@Test
 	void should_return_2_when_findAll_given_company_id_2_employee() {
@@ -72,5 +79,18 @@ class SpringBootEmployeeApplicationTests {
 		assertEquals(0, employeeService.getAllEmployee().size());
 	}
 
+	@Test
+	void should_return_oocl_company_when_getCompanyById_given_1() {
+
+		//given
+		Company company = new Company(1, "oocl");
+		Mockito.when(companyRepository.findById(1)).thenReturn(java.util.Optional.of(company));
+
+		//when
+		Company result = companyService.getCompanyById(1);
+
+		//then
+		assertEquals("oocl", result.getName());
+	}
 
 }
