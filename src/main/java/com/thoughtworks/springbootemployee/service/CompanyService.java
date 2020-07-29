@@ -9,4 +9,5 @@ public interface CompanyService {
     List<Company> getALLCompanies();
     void deleteCompany(Integer id);
     void updateCompany(Company company);
+    void addCompany(Company company);
 }
