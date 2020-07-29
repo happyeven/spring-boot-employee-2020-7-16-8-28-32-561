@@ -7,6 +7,8 @@ import com.thoughtworks.springbootemployee.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
@@ -16,5 +18,10 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public Company getCompanyById(Integer id) {
         return companyRepository.findById(id).orElseThrow(CompanyNotFoundException::new);
+    }
+
+    @Override
+    public List<Company> getALLCompanies() {
+        return companyRepository.findAll();
     }
 }
