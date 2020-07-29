@@ -1,7 +1,11 @@
 package com.thoughtworks.springbootemployee.service.impl;
 
+import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
+import com.thoughtworks.springbootemployee.utils.PageHelper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,6 +17,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     List<Employee> employeeList = new ArrayList<>();
 
+    EmployeeRepository employeeRepository;
+
     @Override
     public void addEmployee(Employee employee) {
         employeeList.add(employee);
@@ -23,7 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeList.remove(employeeList.stream()
                 .filter(e -> e.getId() == employeeID)
                 .findFirst()
-                .get());
+                .orElse(null));
     }
 
     @Override
@@ -38,11 +44,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setAge(employeeDTO.getAge());
         employee.setGender(employeeDTO.getGender());
         employee.setName(employeeDTO.getName());
-        //todo
     }
 
     @Override
     public Employee queryEmployee(int id) {
+        List<Employee> employeeList = employeeRepository.findAll();
         return employeeList.stream()
                 .filter(e -> e.getId() == id)
                 .findFirst()
@@ -51,11 +57,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> getAllEmployee() {
-        return employeeList;
+        return employeeRepository.findAll();
     }
 
     @Override
     public List<Employee> getEmployeeByGender(String gender) {
+        List<Employee> employeeList = employeeRepository.findAll();
         return employeeList.stream()
                 .filter(e -> gender.equals(e.getGender()))
                 .collect(Collectors.toList());
@@ -63,14 +70,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> getEmployeeInPage(Integer page, Integer pageSize) {
-        int startIndex = page * pageSize - pageSize;
-        if (employeeList.size() <= startIndex) {
-            return null;
-        }
-        int endIndex = page * pageSize;
-        if (employeeList.size() < endIndex) {
-            return employeeList.subList(startIndex, employeeList.size());
-        }
-        return employeeList.subList(startIndex, endIndex);
+        List<Employee> employeeList = employeeRepository.findAll();
+        return PageHelper.PageHelper(page, pageSize, employeeList);
     }
 }
