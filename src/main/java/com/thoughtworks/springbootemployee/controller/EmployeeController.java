@@ -47,4 +47,9 @@ public class EmployeeController {
         employeeService.updateEmployee(employeeRequestDTO);
     }
 
+    @GetMapping(params = "gender")
+    public List<Employee> getEmployeeByGender(@RequestParam String gender) {
+        return employeeService.findEmployeeByGender(gender);
+    }
+
 }
