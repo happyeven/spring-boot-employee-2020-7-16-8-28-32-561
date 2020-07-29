@@ -52,4 +52,9 @@ public class EmployeeController {
         return employeeService.findEmployeeByGender(gender);
     }
 
+    @PostMapping
+    public void addEmployee(@RequestBody EmployeeRequestDTO employeeRequestDTO) {
+        employeeService.addEmployee(employeeRequestDTO);
+    }
+
 }

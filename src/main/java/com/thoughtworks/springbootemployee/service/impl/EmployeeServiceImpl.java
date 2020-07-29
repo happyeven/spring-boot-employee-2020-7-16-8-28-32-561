@@ -60,4 +60,11 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void addEmployee(EmployeeRequestDTO employeeRequestDTO) {
+        Employee employee = employeeRequestDTO.toEntity();
+        employee.setCompany(companyRepository.findById(employeeRequestDTO.getCompanyId()).orElse(null));
+        employeeRepository.save(employee);
+    }
+
 }
