@@ -7,4 +7,6 @@ import java.util.List;
 public interface CompanyService {
     Company getCompanyById(Integer id);
     List<Company> getALLCompanies();
+    void deleteCompany(Integer id);
+
 }

@@ -24,4 +24,11 @@ public class CompanyServiceImpl implements CompanyService {
     public List<Company> getALLCompanies() {
         return companyRepository.findAll();
     }
+
+    @Override
+    public void deleteCompany(Integer id) {
+        if (companyRepository.findById(id).orElseThrow(CompanyNotFoundException::new)!=null){
+            companyRepository.deleteById(id);
+        }
+    }
 }
