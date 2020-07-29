@@ -62,7 +62,7 @@ class SpringBootEmployeeApplicationTests {
 		//when
 		Employee result = employeeService.findEmployeeById(employeeId);
 		//then
-		assertEquals(employeeId, employee.getId());
+		assertEquals(employeeId, result.getId());
 	}
 
 	@Test
