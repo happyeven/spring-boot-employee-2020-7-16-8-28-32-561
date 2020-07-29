@@ -62,7 +62,7 @@ public class CompanyServiceImpl implements CompanyService {
             return null;
         }
         int endIndex = page * pageSize - 1;
-        if (companyList.size() > startIndex && companyList.size() <= endIndex) {
+        if (companyList.size() <= endIndex) {
             return companyList.subList(startIndex, companyList.size());
         }
         return companyList.subList(startIndex, endIndex + 1);
