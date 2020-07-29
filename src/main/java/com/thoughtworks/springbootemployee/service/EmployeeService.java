@@ -12,4 +12,5 @@ public interface EmployeeService {
     List<Employee> getAllEmployee();
     Employee findEmployeeById(int id);
     Page<Employee> getAllEmployee(Pageable pageable);
+    //void addEmployee()
 }
