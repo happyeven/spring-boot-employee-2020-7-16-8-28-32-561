@@ -20,9 +20,9 @@ public class EmployeeController {
 
     @GetMapping(path = "/employees")
     public List<Employee> getEmployee(@RequestParam(required = false
-            , defaultValue = "0") String gender
-            , @RequestParam(required = false,defaultValue = "0") Integer page
-            , @RequestParam(required = false,defaultValue = "0")Integer pageSize) {
+                                    , defaultValue = "0") String gender
+                                    , @RequestParam(required = false,defaultValue = "0") Integer page
+                                    , @RequestParam(required = false,defaultValue = "0")Integer pageSize) {
         if ("0".equals(gender) && page == 0 && pageSize == 0) {
             return employeeService.getAllEmployee();
         }
