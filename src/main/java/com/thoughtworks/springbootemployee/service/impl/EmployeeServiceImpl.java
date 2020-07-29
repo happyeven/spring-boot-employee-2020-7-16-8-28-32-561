@@ -63,7 +63,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             return null;
         }
         int endIndex = page * pageSize - 1;
-        if (employeeList.size() > startIndex && employeeList.size() <= endIndex) {
+        if (employeeList.size() <= endIndex) {
             return employeeList.subList(startIndex, employeeList.size());
         }
         return employeeList.subList(startIndex, endIndex + 1);
