@@ -38,4 +38,10 @@ public class CompanyController {
     }
 
 
+    @GetMapping("/{id}/employees")
+    public List<Employee> getEmployeeFromCompany(@PathVariable Integer id) {
+        return companyService.getEmployeeFromCompany(id);
+    }
+
+
 }

@@ -25,10 +25,17 @@ public class Company {
         return name;
     }
 
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
+    }
 
     public Company(int id, String name) {
         this.companyId = id;

@@ -63,6 +63,14 @@ public class Employee {
         this.name = name;
     }
 
+    public Employee(int id, int age, String name, String gender, Company company) {
+        this.id = id;
+        this.age = age;
+        this.name = name;
+        this.gender = gender;
+        this.company = company;
+    }
+
     public Employee() {
     }
 }
