@@ -72,7 +72,7 @@ class SpringBootEmployeeApplicationTests {
 		List<Employee> list = new ArrayList<>();
 		Employee employee = new Employee("Female", employeeId, 4, "111");
 		list.add(employee);
-		Mockito.when(employeeRepository.findAll()).thenReturn(list);
+		Mockito.when(employeeRepository.findById(employeeId)).thenReturn(java.util.Optional.of(employee));
 		//when
 		employeeService.deleteEmployee(employeeId);
 		//then
