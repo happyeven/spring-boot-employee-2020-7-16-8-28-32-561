@@ -42,47 +42,4 @@ class SpringBootEmployeeApplicationTests {
 		assertEquals(2,result.size());
 	}
 
-	@Test
-	void should_return_1_when_findAllInpange_given_3_employee_page2_pageSize_2() {
-		//given
-		List<Employee> list = new ArrayList<>();
-		list.add(new Employee("Female", 1, 4, "111"));
-		list.add(new Employee("Female", 2, 4, "222"));
-		list.add(new Employee("Female", 3, 4, "333"));
-		Mockito.when(employeeRepository.findAll()).thenReturn(list);
-		//when
-		List<Employee> result = employeeService.getEmployeeInPage(2, 2);
-		//then
-		assertEquals(1,result.size());
-	}
-
-	@Test
-	void should_return_2_female_when_findByGender_given_2_female_and_1_male() {
-		//given
-		List<Employee> list = new ArrayList<>();
-		list.add(new Employee("Female", 1, 4, "111"));
-		list.add(new Employee("Female", 2, 4, "222"));
-		list.add(new Employee("Male", 3, 4, "333"));
-		Mockito.when(employeeRepository.findAll()).thenReturn(list);
-		//when
-		List<Employee> result = employeeService.getEmployeeByGender("Female");
-		//then
-		assertEquals(2,result.size());
-	}
-
-	@Test
-	void should_return_111_when_findById_given_3_employee() {
-		//given
-		List<Employee> list = new ArrayList<>();
-		list.add(new Employee("Female", 1, 4, "111"));
-		list.add(new Employee("Female", 2, 4, "222"));
-		list.add(new Employee("Male", 3, 4, "333"));
-		Mockito.when(employeeRepository.findAll()).thenReturn(list);
-		//when
-		String result = employeeService.queryEmployee(1).getName();
-		//then
-		assertEquals("111", result);
-	}
-
-
 }
