@@ -2,20 +2,16 @@ package com.thoughtworks.springbootemployee.dto;
 
 import com.thoughtworks.springbootemployee.entity.Employee;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class EmployeeRequestDTO {
-    private int id;
     private int age;
     private String name;
     private String gender;
     private int companyId;
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getAge() {
         return age;
@@ -49,17 +45,15 @@ public class EmployeeRequestDTO {
         this.companyId = companyId;
     }
 
-    public EmployeeRequestDTO(int id, int age, String name, String gender, int companyId) {
-        this.id = id;
+    public EmployeeRequestDTO(int age, String name, String gender) {
         this.age = age;
         this.name = name;
         this.gender = gender;
-        this.companyId = companyId;
     }
 
     public EmployeeRequestDTO() {
     }
     public Employee toEntity() {
-        return new Employee(gender, id, age, name);
+        return new Employee(age, name, gender);
     }
 }

@@ -3,9 +3,17 @@ package com.thoughtworks.springbootemployee.dto;
 public class EmployeeResponseDTO {
     private String name;
     private int age;
-
+    private String companyName;
     public String getName() {
         return name;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public void setName(String name) {
@@ -18,6 +26,12 @@ public class EmployeeResponseDTO {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public EmployeeResponseDTO(String name, int age, String companyName) {
+        this.name = name;
+        this.age = age;
+        this.companyName = companyName;
     }
 
     public EmployeeResponseDTO(String name, int age) {
