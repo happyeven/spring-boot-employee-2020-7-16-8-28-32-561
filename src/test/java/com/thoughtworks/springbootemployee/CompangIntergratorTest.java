@@ -43,4 +43,19 @@ public class CompangIntergratorTest {
         String s = "name: dong";
     }
 
+    @Test
+    void should_add_1_company_when_add_company_given_1_company() throws Exception {
+        String companyJson = "{\n" +
+                "    \"name\": \"tw\"\n" +
+                "}";
+        mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(companyJson)).andExpect(status().isOk());
+        List<Company> companies = companyRepository.findAll();
+        System.out.println(companies.size());
+        String resultActions = mockMvc.perform(get("/companies")).andReturn().getResponse().getContentAsString();
+        System.out.println(resultActions);
+        String s = "tw";
+
+        Assertions.assertTrue(resultActions.contains(s));
+    }
+
 }
