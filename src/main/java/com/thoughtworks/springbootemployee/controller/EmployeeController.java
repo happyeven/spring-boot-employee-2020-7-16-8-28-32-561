@@ -40,8 +40,8 @@ public class EmployeeController {
     }
 
     @PutMapping(path = "/{id}")
-    public void updateEmployee(@PathVariable int id, @RequestBody EmployeeRequestDTO employeeRequestDTO) {
-        employeeService.updateEmployee(employeeRequestDTO);
+    public void updateEmployee(@PathVariable int id, @RequestBody  @Valid EmployeeRequestDTO employeeRequestDTO) {
+        employeeService.updateEmployee(employeeRequestDTO, id);
     }
 
     @GetMapping(params = "gender")

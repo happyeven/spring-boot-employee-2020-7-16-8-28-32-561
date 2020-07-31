@@ -7,7 +7,9 @@ import javax.validation.constraints.Size;
 
 public class EmployeeRequestDTO {
     private int age;
+    @NotBlank
     private String name;
+    @Size(min = 1,max = 10)
     private String gender;
     private int companyId;
 
