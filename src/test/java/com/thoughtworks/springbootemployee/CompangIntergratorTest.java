@@ -80,4 +80,13 @@ public class CompangIntergratorTest {
         Assertions.assertEquals("tw",name);
     }
 
+    @Test
+    void should_return_ok_when_delete_company_given_company_id_1() throws Exception { //todo get id
+        Company company = new Company("oocl");
+        companyRepository.save(company);
+        mockMvc.perform(delete("/companies/1")).andExpect(status().isOk());
+        List<Company> companies = companyRepository.findAll();
+        Assertions.assertEquals(0,companies.size());
+    }
+
 }
