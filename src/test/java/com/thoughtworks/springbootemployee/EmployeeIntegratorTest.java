@@ -78,4 +78,13 @@ public class EmployeeIntegratorTest {
         List<Employee> employees = JSONArray.parseArray(jsonObject.get("content").toString(), Employee.class);
         Assertions.assertEquals(0,employees.size());
     }
+
+    @Test
+    void should_return_male_when_find_employees_by_gender_given_male() throws Exception {
+        Employee employeeOne = new Employee(1,"dong","male");
+        employeeRepository.save(employeeOne);
+        String contentAsString = mockMvc.perform(get("/employees").param("gender", "male")).andReturn().getResponse().getContentAsString();
+        boolean isHasFemale = contentAsString.contains("female");
+        Assertions.assertEquals(false,isHasFemale);
+    }
 }
