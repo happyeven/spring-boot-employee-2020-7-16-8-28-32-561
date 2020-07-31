@@ -1,5 +1,7 @@
 package com.thoughtworks.springbootemployee;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.entity.Company;
 import org.junit.jupiter.api.AfterEach;
@@ -99,4 +101,15 @@ public class CompanyIntegratorTest {
         Assertions.assertEquals(0, companies.size());
     }
 
+    @Test
+    void should_return_size_1_when_find_all_by_page_given_page_size_1_and_page_0() throws Exception {
+        String saveCompanyJson = "{\n" +
+                "    \"name\": \"tw\"\n" +
+                "}";
+        mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(saveCompanyJson)).andExpect(status().isOk());
+        String contentAsString = mockMvc.perform(get("/companies").param("page", "0").param("size","1")).andReturn().getResponse().getContentAsString();
+        JSONObject jsonObject = JSONArray.parseObject(contentAsString);
+        List<Company> companies = JSONArray.parseArray(jsonObject.get("content").toString(), Company.class);
+        Assertions.assertEquals(1,companies.size());
+    }
 }
