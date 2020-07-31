@@ -38,9 +38,12 @@ public class CompanyIntegratorTest {
 
     @Test
     void should_return_ok_when_find_employee() throws Exception {
-        String resultActions = mockMvc.perform(get("/companies/1/employees")).andReturn().getResponse().getContentAsString();
-        System.out.println(resultActions);
-        String s = "name: dong";
+        String companyJson = "{\n" +
+                "    \"name\": \"tw\"\n" +
+                "}";
+        mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(companyJson)).andExpect(status().isOk());
+        mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(companyJson)).andExpect(status().isOk());
+        mockMvc.perform(get("/companies/1/employees")).andExpect(status().isOk());
     }
 
     @Test
@@ -77,7 +80,7 @@ public class CompanyIntegratorTest {
         mockMvc.perform(put("/companies/1").contentType(MediaType.APPLICATION_JSON).content(companyJson)).andExpect(status().isOk());
         List<Company> companies = companyRepository.findAll();
         String name = companies.get(0).getName();
-        Assertions.assertEquals("tw",name);
+        Assertions.assertEquals("tw", name);
     }
 
     @Test
