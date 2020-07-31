@@ -36,5 +36,11 @@ public class CompangIntergratorTest {
         mockMvc.perform(get("/companies")).andExpect(status().isOk());
     }
 
+    @Test
+    void should_return_ok_when_find_employee() throws Exception {
+        String resultActions = mockMvc.perform(get("/companies/1/employees")).andReturn().getResponse().getContentAsString();
+        System.out.println(resultActions);
+        String s = "name: dong";
+    }
 
 }
