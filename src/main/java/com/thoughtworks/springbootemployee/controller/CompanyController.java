@@ -19,10 +19,6 @@ public class CompanyController {
     @Autowired
     CompanyService companyService;
 
-    @GetMapping
-    public List<Company> getALLCompanies() {
-        return companyService.getALLCompanies();
-    }
 
     @DeleteMapping(path = "/{id}")
     public void deleteCompany(@PathVariable Integer id) {
@@ -31,8 +27,7 @@ public class CompanyController {
 
     @PutMapping(path = "/{id}")
     public void updateCompany(@PathVariable Integer id, @RequestBody Company company) {
-        companyService.getCompanyById(id);
-        companyService.updateCompany(company);
+        companyService.updateCompany(company,id);
     }
 
     @PostMapping
@@ -46,8 +41,11 @@ public class CompanyController {
         return companyService.getEmployeeFromCompany(id);
     }
 
-    @GetMapping(params = {"size", "page"})
-    public Page<Company> getAllCompany(@PageableDefault(size = 1) Pageable pageable) {
+    @GetMapping
+    public Page<Company> getAllCompanyByPaged(@PageableDefault Pageable pageable, @RequestParam(defaultValue = "false") boolean unpaged) {
+        if (unpaged) {
+            return companyService.getAllEmployee(Pageable.unpaged());
+        }
         return companyService.getAllEmployee(pageable);
     }
 
