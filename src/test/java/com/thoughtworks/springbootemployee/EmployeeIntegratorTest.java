@@ -124,4 +124,20 @@ public class EmployeeIntegratorTest {
         isHasDong = mockMvc.perform(get("/employees" )).andReturn().getResponse().getContentAsString().contains("dong");
         Assertions.assertEquals(true,isHasDong);
     }
+
+    @Test
+    void should_return_false_when_delete_employee_given_employee() throws Exception {
+        String employee = "{\n" +
+                "                    \"companyId\": 3,\n" +
+                "                    \"age\": 18,\n" +
+                "                    \"name\": \"david\",\n" +
+                "                    \"gender\": \"male\"\n" +
+                "}";
+        mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).content(employee));
+        int davidId = employeeRepository.findByName("david").getId();
+        mockMvc.perform(delete("/employees/"+davidId)).andExpect(status().isOk());
+        boolean isHasDavid = mockMvc.perform(get("/employees")).andReturn().getResponse().getContentAsString().contains("david");
+        Assertions.assertEquals(false,isHasDavid);
+
+    }
 }

@@ -35,8 +35,8 @@ public class EmployeeController {
         return employeeService.getAllEmployee(pageable);
     }
 
-    @DeleteMapping(params = "id")
-    public void deleteEmployee(@RequestParam int id) {
+    @DeleteMapping("/{id}")
+    public void deleteEmployee(@PathVariable int id) {
         employeeService.deleteEmployee(id);
     }
 
