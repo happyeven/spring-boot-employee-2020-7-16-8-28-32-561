@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class EmployeeIntergratorTest {
+public class EmployeeIntegratorTest {
     @Autowired
     MockMvc mockMvc;
 @Autowired
@@ -54,19 +54,19 @@ public class EmployeeIntergratorTest {
 
     }
 
-//    @Test
-//    void should_return_2_employees_when_find_employees_by_page_given_page_0_size_2() throws Exception { //todo
-//        Employee employeeOne = new Employee(1,"dong","male");
-//        Employee employeeTwo = new Employee(1,"david","male");
-//        Employee employeeThree = new Employee(1,"asd","male");
-//        employeeRepository.save(employeeOne);
-//        employeeRepository.save(employeeTwo);
-//        employeeRepository.save(employeeThree);
-//        String contentAsString = mockMvc.perform(get("/employees").param("page", "0").param("size", "2"))
-//                .andReturn().getResponse().getContentAsString();
-//        mockMvc.perform(get("/employees").param("page", "0").param("size", "2")).andExpect(jsonPath("content")
-//                .value("[{\"id\":1,\"age\":1,\"name\":\"dong\",\"gender\":\"male\"},{\"id\":2,\"age\":1,\"name\":\"david\",\"gender\":\"male\"}]"));
-//        System.out.println(contentAsString);
-//
-//    }
+    @Test
+    void should_return_2_employees_when_find_employees_by_page_given_page_0_size_2() throws Exception { //todo
+        Employee employeeOne = new Employee(1,"dong","male");
+        Employee employeeTwo = new Employee(1,"david","male");
+        Employee employeeThree = new Employee(1,"asd","male");
+        employeeRepository.save(employeeOne);
+        employeeRepository.save(employeeTwo);
+        employeeRepository.save(employeeThree);
+        String contentAsString = mockMvc.perform(get("/employees").param("page", "0").param("size", "2"))
+                .andReturn().getResponse().getContentAsString();
+        mockMvc.perform(get("/employees").param("page", "0").param("size", "2")).andExpect(jsonPath("content")
+                .value("[{\"id\":1,\"age\":1,\"name\":\"dong\",\"gender\":\"male\"},{\"id\":2,\"age\":1,\"name\":\"david\",\"gender\":\"male\"}]"));
+        System.out.println(contentAsString);
+
+    }
 }
