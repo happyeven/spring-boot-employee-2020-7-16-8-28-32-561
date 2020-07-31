@@ -42,8 +42,9 @@ public class CompanyIntegratorTest {
                 "    \"name\": \"tw\"\n" +
                 "}";
         mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(companyJson)).andExpect(status().isOk());
+        Company tw = companyRepository.findByName("tw");
         mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(companyJson)).andExpect(status().isOk());
-        mockMvc.perform(get("/companies/1/employees")).andExpect(status().isOk());
+        mockMvc.perform(get("/companies/+ " +tw.getCompanyId()+"/employees")).andExpect(status().isOk());
     }
 
     @Test
@@ -63,17 +64,20 @@ public class CompanyIntegratorTest {
 
     @Test
     void should_get_1_company_when_get_all_company_given_1_company_db() throws Exception {
-        Company company = new Company("oocl");
-        companyRepository.save(company);
-
-        mockMvc.perform(get("/companies").contentType(MediaType.APPLICATION_JSON)).andExpect(jsonPath("content[0].name").value("oocl"));
+        String companyJson = "{\n" +
+                "    \"name\": \"tw\"\n" +
+                "}";
+        mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(companyJson)).andExpect(status().isOk());
+        mockMvc.perform(get("/companies").contentType(MediaType.APPLICATION_JSON)).andExpect(jsonPath("content[0].name").value("tw"));
 
     }
 
     @Test
     void should_return_ok_when_update_company_given_new_company_name_tw() throws Exception {
-        Company company = new Company("oocl");
-        companyRepository.save(company);
+        String saveCompanyJson = "{\n" +
+                "    \"name\": \"tw\"\n" +
+                "}";
+        mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(saveCompanyJson)).andExpect(status().isOk());
         String companyJson = "{\n" +
                 "    \"name\": \"tw\"\n" +
                 "}";
