@@ -58,4 +58,13 @@ public class CompangIntergratorTest {
         Assertions.assertTrue(resultActions.contains(s));
     }
 
+    @Test
+    void should_get_1_company_when_get_all_company_given_1_company_db() throws Exception {
+        Company company = new Company("oocl");
+        companyRepository.save(company);
+
+        mockMvc.perform(get("/companies").contentType(MediaType.APPLICATION_JSON)).andExpect(jsonPath("content[0].name").value("oocl"));
+
+    }
+
 }
