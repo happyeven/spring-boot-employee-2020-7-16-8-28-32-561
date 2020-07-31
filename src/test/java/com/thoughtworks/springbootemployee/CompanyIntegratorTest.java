@@ -89,11 +89,14 @@ public class CompanyIntegratorTest {
 
     @Test
     void should_return_ok_when_delete_company_given_company_id_1() throws Exception { //todo get id
-        Company company = new Company("oocl");
-        companyRepository.save(company);
-        mockMvc.perform(delete("/companies/1")).andExpect(status().isOk());
+        String companyJson = "{\n" +
+                "    \"name\": \"tw\"\n" +
+                "}";
+        mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(companyJson)).andExpect(status().isOk());
+        int companyId = companyRepository.findByName("tw").getCompanyId();
+        mockMvc.perform(delete("/companies/" + companyId)).andExpect(status().isOk());
         List<Company> companies = companyRepository.findAll();
-        Assertions.assertEquals(0,companies.size());
+        Assertions.assertEquals(0, companies.size());
     }
 
 }
