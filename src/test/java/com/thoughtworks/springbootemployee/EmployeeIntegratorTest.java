@@ -1,11 +1,9 @@
 package com.thoughtworks.springbootemployee;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
-import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
-import com.thoughtworks.springbootemployee.service.EmployeeService;
 import com.thoughtworks.springbootemployee.service.impl.EmployeeServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -13,14 +11,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -64,9 +60,8 @@ public class EmployeeIntegratorTest {
         employeeRepository.save(employeeThree);
         String contentAsString = mockMvc.perform(get("/employees").param("page", "0").param("size", "2"))
                 .andReturn().getResponse().getContentAsString();
-        mockMvc.perform(get("/employees").param("page", "0").param("size", "2")).andExpect(jsonPath("content")
-                .value("[{\"id\":1,\"age\":1,\"name\":\"dong\",\"gender\":\"male\"},{\"id\":2,\"age\":1,\"name\":\"david\",\"gender\":\"male\"}]"));
-        System.out.println(contentAsString);
-
+        JSONObject jsonObject = JSONArray.parseObject(contentAsString);
+        List<Employee> employees = JSONArray.parseArray(jsonObject.get("content").toString(), Employee.class);
+        Assertions.assertEquals(2,employees.size());
     }
 }
