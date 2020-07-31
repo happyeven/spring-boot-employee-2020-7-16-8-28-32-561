@@ -1,0 +1,72 @@
+package com.thoughtworks.springbootemployee;
+
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
+import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
+import com.thoughtworks.springbootemployee.entity.Company;
+import com.thoughtworks.springbootemployee.entity.Employee;
+import com.thoughtworks.springbootemployee.service.EmployeeService;
+import com.thoughtworks.springbootemployee.service.impl.EmployeeServiceImpl;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.List;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+public class EmployeeIntergratorTest {
+    @Autowired
+    MockMvc mockMvc;
+@Autowired
+    EmployeeServiceImpl employeeService;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    @AfterEach
+    void tearDown() {
+        employeeRepository.deleteAll();
+    }
+
+    @Test
+    void should_return_ok_when_find_all_employees() throws Exception {
+        mockMvc.perform(get("/employees").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+        List<Employee> employees =employeeRepository.findAll();
+        Assertions.assertEquals(0,employees.size());
+    }
+
+    @Test
+    void should_return_1_employees_when_find_employees_by_id_given_id_1() throws Exception {
+        Employee employee = new Employee(1,"dong","male");
+        employeeRepository.save(employee);
+        mockMvc.perform(get("/employees/1").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+
+    }
+
+//    @Test
+//    void should_return_2_employees_when_find_employees_by_page_given_page_0_size_2() throws Exception { //todo
+//        Employee employeeOne = new Employee(1,"dong","male");
+//        Employee employeeTwo = new Employee(1,"david","male");
+//        Employee employeeThree = new Employee(1,"asd","male");
+//        employeeRepository.save(employeeOne);
+//        employeeRepository.save(employeeTwo);
+//        employeeRepository.save(employeeThree);
+//        String contentAsString = mockMvc.perform(get("/employees").param("page", "0").param("size", "2"))
+//                .andReturn().getResponse().getContentAsString();
+//        mockMvc.perform(get("/employees").param("page", "0").param("size", "2")).andExpect(jsonPath("content")
+//                .value("[{\"id\":1,\"age\":1,\"name\":\"dong\",\"gender\":\"male\"},{\"id\":2,\"age\":1,\"name\":\"david\",\"gender\":\"male\"}]"));
+//        System.out.println(contentAsString);
+//
+//    }
+}
