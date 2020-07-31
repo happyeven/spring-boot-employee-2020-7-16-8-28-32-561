@@ -138,4 +138,15 @@ class SpringBootEmployeeApplicationTests {
 		//then
 		assertEquals(1,employee.getAge());
 	}
+
+	@Test
+	void should_return_david_when_map_dto_to_entity_when_given_dto_with_name_david() {
+		//given
+		EmployeeRequestDTO employeeRequestDTO = new EmployeeRequestDTO();
+		employeeRequestDTO.setName("david");
+		//when
+		Employee employee = employeeRequestDTO.toEntity();
+		//then
+		assertEquals("david",employee.getName());
+	}
 }
