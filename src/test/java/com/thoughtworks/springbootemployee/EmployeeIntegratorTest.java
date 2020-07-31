@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class EmployeeIntegratorTest {
     @Autowired
     MockMvc mockMvc;
-@Autowired
+    @Autowired
     EmployeeServiceImpl employeeService;
 
     @Autowired
@@ -38,13 +38,13 @@ public class EmployeeIntegratorTest {
     @Test
     void should_return_ok_when_find_all_employees() throws Exception {
         mockMvc.perform(get("/employees").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-        List<Employee> employees =employeeRepository.findAll();
-        Assertions.assertEquals(0,employees.size());
+        List<Employee> employees = employeeRepository.findAll();
+        Assertions.assertEquals(0, employees.size());
     }
 
     @Test
     void should_return_1_employees_when_find_employees_by_id_given_id_1() throws Exception {
-        Employee employee = new Employee(1,"dong","male");
+        Employee employee = new Employee(1, "dong", "male");
         employeeRepository.save(employee);
         mockMvc.perform(get("/employees/1").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 
@@ -52,9 +52,9 @@ public class EmployeeIntegratorTest {
 
     @Test
     void should_return_2_employees_when_find_employees_by_page_given_page_0_size_2() throws Exception { //todo
-        Employee employeeOne = new Employee(1,"dong","male");
-        Employee employeeTwo = new Employee(1,"david","male");
-        Employee employeeThree = new Employee(1,"asd","male");
+        Employee employeeOne = new Employee(1, "dong", "male");
+        Employee employeeTwo = new Employee(1, "david", "male");
+        Employee employeeThree = new Employee(1, "asd", "male");
         employeeRepository.save(employeeOne);
         employeeRepository.save(employeeTwo);
         employeeRepository.save(employeeThree);
@@ -62,13 +62,14 @@ public class EmployeeIntegratorTest {
                 .andReturn().getResponse().getContentAsString();
         JSONObject jsonObject = JSONArray.parseObject(contentAsString);
         List<Employee> employees = JSONArray.parseArray(jsonObject.get("content").toString(), Employee.class);
-        Assertions.assertEquals(2,employees.size());
+        Assertions.assertEquals(2, employees.size());
     }
+
     @Test
     void should_return_0_employees_when_find_employees_by_page_given_page_4_size_2() throws Exception { //todo
-        Employee employeeOne = new Employee(1,"dong","male");
-        Employee employeeTwo = new Employee(1,"david","male");
-        Employee employeeThree = new Employee(1,"asd","male");
+        Employee employeeOne = new Employee(1, "dong", "male");
+        Employee employeeTwo = new Employee(1, "david", "male");
+        Employee employeeThree = new Employee(1, "asd", "male");
         employeeRepository.save(employeeOne);
         employeeRepository.save(employeeTwo);
         employeeRepository.save(employeeThree);
@@ -76,15 +77,28 @@ public class EmployeeIntegratorTest {
                 .andReturn().getResponse().getContentAsString();
         JSONObject jsonObject = JSONArray.parseObject(contentAsString);
         List<Employee> employees = JSONArray.parseArray(jsonObject.get("content").toString(), Employee.class);
-        Assertions.assertEquals(0,employees.size());
+        Assertions.assertEquals(0, employees.size());
     }
 
     @Test
     void should_return_male_when_find_employees_by_gender_given_male() throws Exception {
-        Employee employeeOne = new Employee(1,"dong","male");
+        Employee employeeOne = new Employee(1, "dong", "male");
         employeeRepository.save(employeeOne);
         String contentAsString = mockMvc.perform(get("/employees").param("gender", "male")).andReturn().getResponse().getContentAsString();
         boolean isHasFemale = contentAsString.contains("female");
-        Assertions.assertEquals(false,isHasFemale);
+        Assertions.assertEquals(false, isHasFemale);
     }
+
+    @Test
+    void should_return_ok_when_add_employee_given_1_employee() throws Exception {
+        String employee = "{\n" +
+                "                    \"companyId\": 3,\n" +
+                "                    \"age\": 18,\n" +
+                "                    \"name\": \"dong\",\n" +
+                "                    \"gender\": \"male\"\n" +
+                "}";
+        mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).content(employee)).andExpect(status().isOk());
+
+    }
+
 }
