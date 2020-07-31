@@ -64,4 +64,18 @@ public class EmployeeIntegratorTest {
         List<Employee> employees = JSONArray.parseArray(jsonObject.get("content").toString(), Employee.class);
         Assertions.assertEquals(2,employees.size());
     }
+    @Test
+    void should_return_0_employees_when_find_employees_by_page_given_page_4_size_2() throws Exception { //todo
+        Employee employeeOne = new Employee(1,"dong","male");
+        Employee employeeTwo = new Employee(1,"david","male");
+        Employee employeeThree = new Employee(1,"asd","male");
+        employeeRepository.save(employeeOne);
+        employeeRepository.save(employeeTwo);
+        employeeRepository.save(employeeThree);
+        String contentAsString = mockMvc.perform(get("/employees").param("page", "4").param("size", "2"))
+                .andReturn().getResponse().getContentAsString();
+        JSONObject jsonObject = JSONArray.parseObject(contentAsString);
+        List<Employee> employees = JSONArray.parseArray(jsonObject.get("content").toString(), Employee.class);
+        Assertions.assertEquals(0,employees.size());
+    }
 }
