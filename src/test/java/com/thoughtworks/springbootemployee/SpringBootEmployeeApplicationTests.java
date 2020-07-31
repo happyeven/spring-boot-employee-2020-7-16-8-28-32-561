@@ -2,6 +2,7 @@ package com.thoughtworks.springbootemployee;
 
 import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
+import com.thoughtworks.springbootemployee.dto.EmployeeRequestDTO;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.service.impl.CompanyServiceImpl;
@@ -124,5 +125,17 @@ class SpringBootEmployeeApplicationTests {
 
 		//then
 		assertEquals(2, result.size());
+	}
+
+	@Test
+	void should_return_age_1_when_map_dto_to_entity_given_dto_with_age_1() {
+		//given
+		EmployeeRequestDTO employeeRequestDTO =new EmployeeRequestDTO();
+		employeeRequestDTO.setAge(1);
+
+		//when
+		Employee employee = employeeRequestDTO.toEntity();
+		//then
+		assertEquals(1,employee.getAge());
 	}
 }
