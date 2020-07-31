@@ -50,8 +50,12 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public void addEmployee(@RequestBody EmployeeRequestDTO employeeRequestDTO) {
+    public void addEmployee(@RequestBody @Valid EmployeeRequestDTO employeeRequestDTO) {
         employeeService.addEmployee(employeeRequestDTO);
     }
 
+    @GetMapping("/{employeeId}")
+    public Employee getEmployeeById(@PathVariable Integer employeeId) {
+        return employeeService.findEmployeeById(employeeId);
+    }
 }
