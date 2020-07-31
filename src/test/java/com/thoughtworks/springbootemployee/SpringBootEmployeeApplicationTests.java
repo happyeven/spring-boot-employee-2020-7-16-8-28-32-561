@@ -149,4 +149,17 @@ class SpringBootEmployeeApplicationTests {
 		//then
 		assertEquals("david",employee.getName());
 	}
+
+	@Test
+	void should_return_male_when_map_dto_to_entity_when_given_dto_with_gender_male() {
+		//given
+		EmployeeRequestDTO employeeRequestDTO = new EmployeeRequestDTO(1,"david","male");
+
+		//when
+		Employee employee = new Employee(1,"david","male");
+		Employee entity = employeeRequestDTO.toEntity();
+
+		assertEquals(employee,entity);
+
+	}
 }
