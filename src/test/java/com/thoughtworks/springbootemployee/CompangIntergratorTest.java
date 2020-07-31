@@ -67,4 +67,17 @@ public class CompangIntergratorTest {
 
     }
 
+    @Test
+    void should_return_ok_when_update_company_given_new_company_name_tw() throws Exception {
+        Company company = new Company("oocl");
+        companyRepository.save(company);
+        String companyJson = "{\n" +
+                "    \"name\": \"tw\"\n" +
+                "}";
+        mockMvc.perform(put("/companies/1").contentType(MediaType.APPLICATION_JSON).content(companyJson)).andExpect(status().isOk());
+        List<Company> companies = companyRepository.findAll();
+        String name = companies.get(0).getName();
+        Assertions.assertEquals("tw",name);
+    }
+
 }
