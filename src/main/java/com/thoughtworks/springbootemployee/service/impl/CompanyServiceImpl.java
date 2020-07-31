@@ -38,7 +38,9 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public void updateCompany(Company company) {
+    public void updateCompany(Company company,Integer id) {
+        Company findCompany=getCompanyById(id);
+        findCompany.setName(company.getName());
         companyRepository.save(company);
     }
 
