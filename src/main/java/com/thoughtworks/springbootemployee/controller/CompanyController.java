@@ -1,8 +1,10 @@
 package com.thoughtworks.springbootemployee.controller;
 
 
+import com.thoughtworks.springbootemployee.dto.CompanyResponseDTO;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
+import com.thoughtworks.springbootemployee.mapper.CompanyMapper;
 import com.thoughtworks.springbootemployee.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -44,9 +46,9 @@ public class CompanyController {
     @GetMapping
     public Page<Company> getAllCompanyByPaged(@PageableDefault Pageable pageable, @RequestParam(defaultValue = "false") boolean unpaged) {
         if (unpaged) {
-            return companyService.getAllEmployee(Pageable.unpaged());
+            return companyService.getAllCompany(Pageable.unpaged());
         }
-        return companyService.getAllEmployee(pageable);
+        return companyService.getAllCompany(pageable);
     }
 
 }
