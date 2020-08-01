@@ -3,11 +3,8 @@ package com.thoughtworks.springbootemployee.service.impl;
 import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
 import com.thoughtworks.springbootemployee.dto.EmployeeRequestDTO;
-import com.thoughtworks.springbootemployee.dto.EmployeeResponseDTO;
-import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
-import com.thoughtworks.springbootemployee.mapper.EmployeeMapper;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,13 +21,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private CompanyRepository companyRepository;
 
-    public List<EmployeeResponseDTO> getAllEmployee() {
-        return EmployeeMapper.employeeResponseDtoToEmployeeList(employeeRepository.findAll());
+    public List<Employee> getAllEmployee() {
+        return employeeRepository.findAll();
     }
 
     @Override
-    public EmployeeResponseDTO findEmployeeById(int id) {
-        return EmployeeMapper.employeeToEmployeeResponse(employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new));
+    public Employee findEmployeeById(int id) {
+        return employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
     }
 
     @Override
@@ -45,26 +42,22 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void updateEmployee(EmployeeRequestDTO employeeRequest,int id) {
+    public void updateEmployee(Employee employeeRequest,int id) {
         findEmployeeById(id);
-        Company saveCompany =companyRepository.findById(employeeRequest.getCompanyId()).orElse(null);
-        Employee employee = EmployeeMapper.employeeRequestDtoToEmployee(employeeRequest, saveCompany);
-        employee.setId(id);
-        employeeRepository.save(employee);
+        employeeRequest.setId(id);
+        employeeRepository.save(employeeRequest);
     }
 
     @Override
-    public List<EmployeeResponseDTO> findEmployeeByGender(String gender) {
-        return EmployeeMapper.employeeResponseDtoToEmployeeList(employeeRepository.findAll()
+    public List<Employee> findEmployeeByGender(String gender) {
+        return employeeRepository.findAll()
                 .stream()
                 .filter(e -> gender.equals(e.getGender()))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
     }
 
     @Override
-    public void addEmployee(EmployeeRequestDTO employeeRequest) {
-        Company saveCompany =companyRepository.findById(employeeRequest.getCompanyId()).orElse(null);
-        Employee employee = EmployeeMapper.employeeRequestDtoToEmployee(employeeRequest, saveCompany);
+    public void addEmployee(Employee employee) {
         employeeRepository.save(employee);
     }
 
