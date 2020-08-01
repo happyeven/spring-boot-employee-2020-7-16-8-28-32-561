@@ -30,7 +30,7 @@ public class EmployeeController {
     public List<EmployeeResponseDTO> getAllEmployees() {
         return employeeService.getAllEmployee();
     }
-    
+
 
     @GetMapping(params = {"size","page"})
     public Page<Employee> getAllEmployees(@PageableDefault(size = 1) Pageable pageable) {

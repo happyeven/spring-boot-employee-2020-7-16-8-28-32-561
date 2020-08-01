@@ -140,4 +140,8 @@ public class EmployeeIntegratorTest {
         Assertions.assertEquals(false,isHasDavid);
 
     }
+
+    @Test
+    void shoud_return_cant_find_the_employee_when_find_employee_by_id() {
+    }
 }
