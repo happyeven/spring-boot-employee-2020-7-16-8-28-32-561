@@ -3,8 +3,10 @@ package com.thoughtworks.springbootemployee.service.impl;
 import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
 import com.thoughtworks.springbootemployee.dto.EmployeeRequestDTO;
+import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
+import com.thoughtworks.springbootemployee.mapper.EmployeeMapper;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -42,10 +44,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void updateEmployee(Employee employeeRequest,int id) {
+    public void updateEmployee(EmployeeRequestDTO employeeRequest,int id) {
         findEmployeeById(id);
-        employeeRequest.setId(id);
-        employeeRepository.save(employeeRequest);
+        Company saveCompany =companyRepository.findById(employeeRequest.getCompanyId()).orElse(null);
+        Employee employee = EmployeeMapper.employeeRequestDtoToEmployee(employeeRequest, saveCompany);
+        employee.setId(id);
+        employeeRepository.save(employee);
     }
 
     @Override

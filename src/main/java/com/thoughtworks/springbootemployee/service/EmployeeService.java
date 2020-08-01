@@ -12,7 +12,7 @@ public interface EmployeeService {
     Employee findEmployeeById(int id);
     Page<Employee> getAllEmployee(Pageable pageable);
     void deleteEmployee(int id);
-    void updateEmployee(Employee employeeRequest,int id);
+    void updateEmployee(EmployeeRequestDTO employeeRequest,int id);
     List<Employee> findEmployeeByGender(String gender);
     void addEmployee(Employee employeeRequest);
 }
