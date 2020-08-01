@@ -61,7 +61,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void addEmployee(Employee employee) {
+    public void addEmployee(EmployeeRequestDTO employeeRequest) {
+        Company saveCompany =companyRepository.findById(employeeRequest.getCompanyId()).orElse(null);
+        Employee employee = EmployeeMapper.employeeRequestDtoToEmployee(employeeRequest, saveCompany);
         employeeRepository.save(employee);
     }
 

@@ -14,5 +14,5 @@ public interface EmployeeService {
     void deleteEmployee(int id);
     void updateEmployee(EmployeeRequestDTO employeeRequest,int id);
     List<Employee> findEmployeeByGender(String gender);
-    void addEmployee(Employee employeeRequest);
+    void addEmployee(EmployeeRequestDTO employeeRequest);
 }

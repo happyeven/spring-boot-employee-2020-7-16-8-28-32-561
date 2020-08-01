@@ -59,9 +59,9 @@ public class EmployeeController {
 
     @PostMapping
     public void addEmployee(@RequestBody @Valid EmployeeRequestDTO employeeRequestDTO) {
-        Company saveCompany =companyRepository.findById(employeeRequestDTO.getCompanyId()).orElse(null);
-        Employee employee = EmployeeMapper.employeeRequestDtoToEmployee(employeeRequestDTO, saveCompany);
-        employeeService.addEmployee(employee);
+//        Company saveCompany =companyRepository.findById(employeeRequestDTO.getCompanyId()).orElse(null);
+//        Employee employee = EmployeeMapper.employeeRequestDtoToEmployee(employeeRequestDTO, saveCompany);
+        employeeService.addEmployee(employeeRequestDTO);
     }
 
     @GetMapping("/{employeeId}")
