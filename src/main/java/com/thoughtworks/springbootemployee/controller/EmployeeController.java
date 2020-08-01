@@ -27,7 +27,7 @@ public class EmployeeController {
     CompanyRepository companyRepository;
 
     @GetMapping
-    public List<EmployeeResponseDTO> getAllEmployees() {
+    public List<Employee> getAllEmployees() {
         return employeeService.getAllEmployee();
     }
 
@@ -51,16 +51,17 @@ public class EmployeeController {
 
     @GetMapping(params = "gender")
     public List<EmployeeResponseDTO> getEmployeeByGender(@RequestParam String gender) {
-        return employeeService.findEmployeeByGender(gender);
+        return EmployeeMapper.employeeResponseDtoToEmployeeList(employeeService.findEmployeeByGender(gender));
     }
 
     @PostMapping
     public void addEmployee(@RequestBody @Valid EmployeeRequestDTO employeeRequestDTO) {
-        employeeService.addEmployee(employeeRequestDTO);
+        Company saveCompany =companyRepository.findById(employeeRequestDTO.getCompanyId()).orElse(null);
+        employeeService.addEmployee(EmployeeMapper.employeeRequestDtoToEmployee(employeeRequestDTO,saveCompany));
     }
 
     @GetMapping("/{employeeId}")
     public EmployeeResponseDTO getEmployeeById(@PathVariable Integer employeeId) {
-        return employeeService.findEmployeeById(employeeId);
+        return EmployeeMapper.employeeToEmployeeResponse(employeeService.findEmployeeById(employeeId));
     }
 }
