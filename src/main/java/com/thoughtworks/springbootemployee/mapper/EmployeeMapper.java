@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeMapper {
-    @Autowired
-    CompanyRepository companyRepository;
 
     public static Employee employeeRequestDtoToEmployee(EmployeeRequestDTO employeeRequestDTO, Company company) {
 
