@@ -1,7 +1,10 @@
 package com.thoughtworks.springbootemployee.controller;
 
+import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.dto.EmployeeRequestDTO;
+import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
+import com.thoughtworks.springbootemployee.mapper.EmployeeMapper;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +21,9 @@ public class EmployeeController {
 
     @Autowired
     EmployeeService employeeService;
+
+    @Autowired
+    CompanyRepository companyRepository;
 
     @GetMapping
     public List<Employee> getAllEmployees() {
@@ -42,7 +48,9 @@ public class EmployeeController {
 
     @PutMapping(path = "/{id}")
     public void updateEmployee(@PathVariable int id, @RequestBody  @Valid EmployeeRequestDTO employeeRequestDTO) {
-        employeeService.updateEmployee(employeeRequestDTO, id);
+        Company saveCompany =companyRepository.findById(employeeRequestDTO.getCompanyId()).orElse(null);
+        Employee employee = EmployeeMapper.employeeRequestDtoToEmployee(employeeRequestDTO, saveCompany);
+        employeeService.updateEmployee(employee, id);
     }
 
     @GetMapping(params = "gender")
