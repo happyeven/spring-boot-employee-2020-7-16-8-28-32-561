@@ -28,7 +28,7 @@ public class EmployeeController {
 
     @GetMapping
     public List<EmployeeResponseDTO> getAllEmployees() {
-        return EmployeeMapper.employeeResponseDtoToEmployeeList(employeeService.getAllEmployee());
+        return employeeService.getAllEmployee();
     }
 
     @GetMapping(params = "id")
