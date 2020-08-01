@@ -54,13 +54,11 @@ public class EmployeeController {
 
     @GetMapping(params = "gender")
     public List<EmployeeResponseDTO> getEmployeeByGender(@RequestParam String gender) {
-        return EmployeeMapper.employeeResponseDtoToEmployeeList(employeeService.findEmployeeByGender(gender));
+        return employeeService.findEmployeeByGender(gender);
     }
 
     @PostMapping
     public void addEmployee(@RequestBody @Valid EmployeeRequestDTO employeeRequestDTO) {
-//        Company saveCompany =companyRepository.findById(employeeRequestDTO.getCompanyId()).orElse(null);
-//        Employee employee = EmployeeMapper.employeeRequestDtoToEmployee(employeeRequestDTO, saveCompany);
         employeeService.addEmployee(employeeRequestDTO);
     }
 

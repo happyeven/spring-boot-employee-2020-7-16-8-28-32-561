@@ -3,6 +3,7 @@ package com.thoughtworks.springbootemployee.service.impl;
 import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
 import com.thoughtworks.springbootemployee.dto.EmployeeRequestDTO;
+import com.thoughtworks.springbootemployee.dto.EmployeeResponseDTO;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
@@ -53,11 +54,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> findEmployeeByGender(String gender) {
-        return employeeRepository.findAll()
+    public List<EmployeeResponseDTO> findEmployeeByGender(String gender) {
+        return EmployeeMapper.employeeResponseDtoToEmployeeList(employeeRepository.findAll()
                 .stream()
                 .filter(e -> gender.equals(e.getGender()))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     @Override
