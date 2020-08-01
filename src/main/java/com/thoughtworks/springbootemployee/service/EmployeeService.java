@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface EmployeeService {
     List<EmployeeResponseDTO> getAllEmployee();
-    Employee findEmployeeById(int id);
+    EmployeeResponseDTO findEmployeeById(int id);
     Page<Employee> getAllEmployee(Pageable pageable);
     void deleteEmployee(int id);
     void updateEmployee(EmployeeRequestDTO employeeRequest,int id);

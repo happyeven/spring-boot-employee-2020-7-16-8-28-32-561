@@ -29,8 +29,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee findEmployeeById(int id) {
-        return employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
+    public EmployeeResponseDTO findEmployeeById(int id) {
+        return EmployeeMapper.employeeToEmployeeResponse(employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new));
     }
 
     @Override

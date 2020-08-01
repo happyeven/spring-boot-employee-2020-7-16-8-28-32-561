@@ -30,12 +30,7 @@ public class EmployeeController {
     public List<EmployeeResponseDTO> getAllEmployees() {
         return employeeService.getAllEmployee();
     }
-
-    @GetMapping(params = "id")
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Employee findEmployee(@RequestParam int id) {
-        return employeeService.findEmployeeById(id);
-    }
+    
 
     @GetMapping(params = {"size","page"})
     public Page<Employee> getAllEmployees(@PageableDefault(size = 1) Pageable pageable) {
@@ -64,6 +59,6 @@ public class EmployeeController {
 
     @GetMapping("/{employeeId}")
     public EmployeeResponseDTO getEmployeeById(@PathVariable Integer employeeId) {
-        return EmployeeMapper.employeeToEmployeeResponse(employeeService.findEmployeeById(employeeId));
+        return employeeService.findEmployeeById(employeeId);
     }
 }
