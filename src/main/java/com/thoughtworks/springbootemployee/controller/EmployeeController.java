@@ -2,6 +2,7 @@ package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.dto.EmployeeRequestDTO;
+import com.thoughtworks.springbootemployee.dto.EmployeeResponseDTO;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.mapper.EmployeeMapper;
@@ -64,7 +65,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{employeeId}")
-    public Employee getEmployeeById(@PathVariable Integer employeeId) {
-        return employeeService.findEmployeeById(employeeId);
+    public EmployeeResponseDTO getEmployeeById(@PathVariable Integer employeeId) {
+        return EmployeeMapper.employeeToEmployeeResponse(employeeService.findEmployeeById(employeeId));
     }
 }
