@@ -27,8 +27,8 @@ public class EmployeeController {
     CompanyRepository companyRepository;
 
     @GetMapping
-    public List<Employee> getAllEmployees() {
-        return employeeService.getAllEmployee();
+    public List<EmployeeResponseDTO> getAllEmployees() {
+        return EmployeeMapper.employeeResponseDtoToEmployeeList(employeeService.getAllEmployee());
     }
 
     @GetMapping(params = "id")

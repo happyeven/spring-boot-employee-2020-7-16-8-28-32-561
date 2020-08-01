@@ -11,7 +11,7 @@ public class EmployeeRequestDTO {
     private String name;
     @Size(min = 1,max = 10)
     private String gender;
-    private int companyId;
+    private Integer companyId;
 
 
 
@@ -39,11 +39,11 @@ public class EmployeeRequestDTO {
         this.gender = gender;
     }
 
-    public int getCompanyId() {
+    public Integer getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(int companyId) {
+    public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
     }
 
