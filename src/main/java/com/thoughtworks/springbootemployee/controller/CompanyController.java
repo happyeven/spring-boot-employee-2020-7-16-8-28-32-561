@@ -1,9 +1,9 @@
 package com.thoughtworks.springbootemployee.controller;
 
 
-
 import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.dto.CompanyRequestDTO;
+import com.thoughtworks.springbootemployee.dto.CompanyResponseDTO;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.mapper.CompanyMapper;
@@ -51,15 +51,17 @@ public class CompanyController {
     @GetMapping("/{id}/employees")
     public List<String> getEmployeeFromCompany(@PathVariable Integer companyId) {
         Company companyById = companyService.getCompanyById(companyId);
-        return CompanyMapper.companyToCompanyResponseDTO(companyById).getEmployeeIdList();
+        return CompanyMapper.companyToCompanyResponseDTO(companyById).getEmployeeNameList();
     }
 
     @GetMapping
-    public Page<Company> getAllCompanyByPaged(@PageableDefault Pageable pageable, @RequestParam(defaultValue = "false") boolean unpaged) {
+    public List<CompanyResponseDTO> getAllCompanyByPaged(@PageableDefault Pageable pageable, @RequestParam(defaultValue = "false") boolean unpaged) {
+        List<Company> companies;
         if (unpaged) {
-            return companyService.getAllCompany(Pageable.unpaged());
+            companies = companyService.getAllCompany(Pageable.unpaged()).toList();
         }
-        return companyService.getAllCompany(pageable);
+        companies = companyService.getAllCompany(pageable).toList();
+        return CompanyMapper.companyToCompanyResponseDTOList(companies);
     }
 
 }
