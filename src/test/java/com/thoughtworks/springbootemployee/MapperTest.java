@@ -59,4 +59,14 @@ public class MapperTest {
         Assertions.assertEquals(employee.getGender(), employeeResponseDTO.getGender());
         Assertions.assertEquals(employee.getName(), employeeResponseDTO.getName());
     }
+    @Test
+    void should_return_dto_without_company_when_entity_to_dto_given_employee_with_not_exist_company() {
+        Employee employee = new Employee(19, "dong", "male",null);
+        EmployeeResponseDTO employeeResponseDTO = EmployeeMapper.employeeToEmployeeResponse(employee);
+        Assertions.assertEquals(employee.getAge(), employeeResponseDTO.getAge());
+        Assertions.assertEquals("", employeeResponseDTO.getCompanyName());
+        Assertions.assertEquals(employee.getGender(), employeeResponseDTO.getGender());
+        Assertions.assertEquals(employee.getName(), employeeResponseDTO.getName());
+    }
+
 }
