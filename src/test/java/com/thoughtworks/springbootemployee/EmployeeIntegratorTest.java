@@ -46,9 +46,8 @@ public class EmployeeIntegratorTest {
     void should_return_1_employees_when_find_employees_by_id_given_id_1() throws Exception {
         Employee employee = new Employee(1, "dong", "male");
         employeeRepository.save(employee);
-        int dongId = employeeRepository.findByName("dong").getId();
+        int dongId = employeeRepository.findByName("dong").stream().findFirst().get().getId();
         mockMvc.perform(get("/employees/" + dongId).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-
     }
 
     @Test
@@ -119,7 +118,7 @@ public class EmployeeIntegratorTest {
                 "                    \"name\": \"dong\",\n" +
                 "                    \"gender\": \"male\"\n" +
                 "}";
-        int davidId = employeeRepository.findByName("david").getId();
+        int davidId = employeeRepository.findByName("david").stream().findFirst().get().getId();
         mockMvc.perform(put("/employees/" + davidId).contentType(MediaType.APPLICATION_JSON).content(putEmployee));
         isHasDong = mockMvc.perform(get("/employees" )).andReturn().getResponse().getContentAsString().contains("dong");
         Assertions.assertEquals(true,isHasDong);
@@ -134,7 +133,7 @@ public class EmployeeIntegratorTest {
                 "                    \"gender\": \"male\"\n" +
                 "}";
         mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).content(employee));
-        int davidId = employeeRepository.findByName("david").getId();
+        int davidId = employeeRepository.findByName("david").stream().findFirst().get().getId();
         mockMvc.perform(delete("/employees/"+davidId)).andExpect(status().isOk());
         boolean isHasDavid = mockMvc.perform(get("/employees")).andReturn().getResponse().getContentAsString().contains("david");
         Assertions.assertEquals(false,isHasDavid);
