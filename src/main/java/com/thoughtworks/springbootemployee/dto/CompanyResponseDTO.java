@@ -9,7 +9,7 @@ import java.util.List;
 public class CompanyResponseDTO {
     @NotBlank
     private String name;
-    private List<String> employeeIdList;
+    private List<String> employeeNameList;
 
     public String getName() {
         return name;
@@ -19,17 +19,17 @@ public class CompanyResponseDTO {
         this.name = name;
     }
 
-    public List<String> getEmployeeIdList() {
-        return employeeIdList;
+    public List<String> getEmployeeNameList() {
+        return employeeNameList;
     }
 
-    public void setEmployeeIdList(List<String> employeeIdList) {
-        this.employeeIdList = employeeIdList;
+    public void setEmployeeNameList(List<String> employeeIdList) {
+        this.employeeNameList = employeeIdList;
     }
 
-    public CompanyResponseDTO(String name, List<String> employeeIdList) {
+    public CompanyResponseDTO(String name, List<String> employeeNameList) {
         this.name = name;
-        this.employeeIdList = employeeIdList;
+        this.employeeNameList = employeeNameList;
     }
 
     public CompanyResponseDTO() {
