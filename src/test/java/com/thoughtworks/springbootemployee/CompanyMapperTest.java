@@ -24,4 +24,10 @@ public class CompanyMapperTest {
         Assertions.assertEquals("dong",companyResponseDTO.getEmployeeNameList().get(1));
     }
 
+    @Test
+    void should_return_oocl_when_dto_to_entity_given_dto_with_name_oocl() {
+        CompanyRequestDTO  companyRequestDTO= new CompanyRequestDTO("oocl");
+        Company company = CompanyMapper.companyRequestDTOtoCompany(companyRequestDTO);
+        Assertions.assertEquals("oocl",company.getName());
+    }
 }
