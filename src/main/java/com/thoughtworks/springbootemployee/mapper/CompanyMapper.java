@@ -9,6 +9,7 @@ import com.thoughtworks.springbootemployee.entity.Employee;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class CompanyMapper {
@@ -16,19 +17,19 @@ public class CompanyMapper {
         List<Employee> employeeList = company.getEmployeeList();
         List<String> employeeNameList = new ArrayList<>();
         if (employeeList != null) {
-            for (Employee employee : employeeList) {
-                employeeNameList.add(employee.getName());
-            }
+            employeeNameList = employeeList.stream()
+                    .map(employee -> employee.getName())
+                    .collect(Collectors.toList());
         }
         return new CompanyResponseDTO(company.getName(), employeeNameList);
     }
 
-    public static Company companyCompanyRequestDTOtoCompany(CompanyRequestDTO companyRequestDTO) {
+    public static Company companyRequestDTOtoCompany(CompanyRequestDTO companyRequestDTO) {
         return new Company(companyRequestDTO.getName());
     }
 
-    public static List<CompanyResponseDTO> companyToCompanyResponseDTOList(List<Company> companies){
-        List<CompanyResponseDTO> companyResponseDTOList =new ArrayList<>();
+    public static List<CompanyResponseDTO> companyToCompanyResponseDTOList(List<Company> companies) {
+        List<CompanyResponseDTO> companyResponseDTOList = new ArrayList<>();
         for (Company company : companies) {
             companyResponseDTOList.add(companyToCompanyResponseDTO(company));
         }
