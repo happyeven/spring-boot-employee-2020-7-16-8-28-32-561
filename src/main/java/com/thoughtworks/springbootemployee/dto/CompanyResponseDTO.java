@@ -5,7 +5,6 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 public class CompanyResponseDTO {
-    @NotBlank
     private String name;
     private List<String> employeeNameList;
 
