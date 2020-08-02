@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class CompanyController {
     }
 
     @PostMapping
-    public void addCompany(@RequestBody CompanyRequestDTO company) {
+    public void addCompany(@RequestBody @Valid CompanyRequestDTO company) {
         Company saveCompany = CompanyMapper.companyCompanyRequestDTOtoCompany(company);
         companyService.addCompany(saveCompany);
     }
