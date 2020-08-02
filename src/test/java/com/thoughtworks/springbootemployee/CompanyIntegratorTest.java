@@ -47,9 +47,9 @@ public class CompanyIntegratorTest {
                 "    \"name\": \"tw\"\n" +
                 "}";
         mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(companyJson)).andExpect(status().isOk());
-        Company tw = companyRepository.findByName("tw");
-        mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(companyJson)).andExpect(status().isOk());
-        mockMvc.perform(get("/companies/+ " +tw.getCompanyId()+"/employees")).andExpect(status().isOk());
+        int companyId = companyRepository.findByName("tw").getCompanyId();
+        String url = "/companies/" + companyId +"/employees";
+        mockMvc.perform(get(url)).andExpect(status().isOk());
     }
 
     @Test
