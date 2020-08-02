@@ -23,7 +23,7 @@ public class EmployeeMapper {
     public static EmployeeResponseDTO employeeToEmployeeResponse(Employee employee) {
         Company company = employee.getCompany();
         String companyName = company == null ? "" : company.getName();
-        return new EmployeeResponseDTO(employee.getName(), employee.getAge(), companyName);
+        return new EmployeeResponseDTO(employee.getName(), employee.getAge(), companyName,employee.getGender());
     }
 
     public static List<EmployeeResponseDTO> employeeResponseDtoToEmployeeList(List<Employee> employees) {
