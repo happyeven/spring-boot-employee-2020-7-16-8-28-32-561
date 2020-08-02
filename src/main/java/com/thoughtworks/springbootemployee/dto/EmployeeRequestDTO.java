@@ -9,11 +9,9 @@ public class EmployeeRequestDTO {
     private int age;
     @NotBlank
     private String name;
-    @Size(min = 1,max = 10)
+    @Size(min = 1, max = 10)
     private String gender;
     private Integer companyId;
-
-
 
     public int getAge() {
         return age;
@@ -43,10 +41,6 @@ public class EmployeeRequestDTO {
         return companyId;
     }
 
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
-    }
-
     public EmployeeRequestDTO(int age, String name, String gender) {
         this.age = age;
         this.name = name;
@@ -54,8 +48,5 @@ public class EmployeeRequestDTO {
     }
 
     public EmployeeRequestDTO() {
-    }
-    public Employee toEntity() {
-        return new Employee(age, name, gender);
     }
 }
