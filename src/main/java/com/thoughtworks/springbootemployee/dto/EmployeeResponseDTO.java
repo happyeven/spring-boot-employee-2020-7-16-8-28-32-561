@@ -25,6 +25,13 @@ public class EmployeeResponseDTO {
         return name;
     }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
 
     public void setName(String name) {
         this.name = name;
