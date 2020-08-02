@@ -5,6 +5,7 @@ import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
 import com.thoughtworks.springbootemployee.dto.EmployeeRequestDTO;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
+import com.thoughtworks.springbootemployee.mapper.EmployeeMapper;
 import com.thoughtworks.springbootemployee.service.impl.CompanyServiceImpl;
 import com.thoughtworks.springbootemployee.service.impl.EmployeeServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -132,9 +133,10 @@ class SpringBootEmployeeApplicationTests {
 		//given
 		EmployeeRequestDTO employeeRequestDTO =new EmployeeRequestDTO();
 		employeeRequestDTO.setAge(1);
+		Company company =new Company("oocl");
 
 		//when
-		Employee employee = employeeRequestDTO.toEntity();
+		Employee employee = EmployeeMapper.employeeRequestDtoToEmployee(employeeRequestDTO,company);
 		//then
 		assertEquals(1,employee.getAge());
 	}
