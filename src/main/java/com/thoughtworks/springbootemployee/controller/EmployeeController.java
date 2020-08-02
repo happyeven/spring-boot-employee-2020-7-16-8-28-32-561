@@ -54,7 +54,7 @@ public class EmployeeController {
 
     @GetMapping(params = "gender")
     public List<EmployeeResponseDTO> getEmployeeByGender(@RequestParam String gender) {
-        return EmployeeMapper.employeeResponseDtoToEmployeeList(employeeService.findEmployeeByGender(gender));
+        return EmployeeMapper.employeesToEmployeeResponseDtos(employeeService.findEmployeeByGender(gender));
     }
 
     @PostMapping

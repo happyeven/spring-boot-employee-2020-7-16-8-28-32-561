@@ -26,7 +26,7 @@ public class EmployeeMapper {
         return new EmployeeResponseDTO(employee.getName(), employee.getAge(), companyName,employee.getGender());
     }
 
-    public static List<EmployeeResponseDTO> employeeResponseDtoToEmployeeList(List<Employee> employees) {
+    public static List<EmployeeResponseDTO> employeesToEmployeeResponseDtos(List<Employee> employees) {
         List<EmployeeResponseDTO> employeeArrayList=new ArrayList<>();
         for (Employee employee : employees) {
             employeeArrayList.add(employeeToEmployeeResponse(employee));
