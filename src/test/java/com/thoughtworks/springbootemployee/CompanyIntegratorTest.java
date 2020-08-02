@@ -73,20 +73,21 @@ public class CompanyIntegratorTest {
                 "    \"name\": \"tw\"\n" +
                 "}";
         mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(companyJson)).andExpect(status().isOk());
-        mockMvc.perform(get("/companies").contentType(MediaType.APPLICATION_JSON)).andExpect(jsonPath("content[0].name").value("tw"));
+        mockMvc.perform(get("/companies").contentType(MediaType.APPLICATION_JSON)).andExpect(jsonPath("[0].name").value("tw"));
 
     }
 
     @Test
     void should_return_ok_when_update_company_given_new_company_name_tw() throws Exception {
         String saveCompanyJson = "{\n" +
-                "    \"name\": \"tw\"\n" +
+                "    \"name\": \"oocl\"\n" +
                 "}";
         mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(saveCompanyJson)).andExpect(status().isOk());
         String companyJson = "{\n" +
                 "    \"name\": \"tw\"\n" +
                 "}";
-        mockMvc.perform(put("/companies/1").contentType(MediaType.APPLICATION_JSON).content(companyJson)).andExpect(status().isOk());
+        int ooclId = companyRepository.findByName("oocl").getCompanyId();
+        mockMvc.perform(put("/companies/"+ ooclId).contentType(MediaType.APPLICATION_JSON).content(companyJson)).andExpect(status().isOk());
         List<Company> companies = companyRepository.findAll();
         String name = companies.get(0).getName();
         Assertions.assertEquals("tw", name);
