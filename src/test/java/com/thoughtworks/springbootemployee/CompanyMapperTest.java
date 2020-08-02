@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CompanyMapperTest {
     @Test
@@ -25,9 +26,22 @@ public class CompanyMapperTest {
     }
 
     @Test
+    void should_return_2_when_entities_to_dtos_given_2_entity() {
+        Company oocl = new Company("oocl");
+        Company tw = new Company("tw");
+        ArrayList<Company> companies = new ArrayList<>();
+        companies.add(oocl);
+        companies.add(tw);
+        List<CompanyResponseDTO> companyResponseDTOS = CompanyMapper.companyToCompanyResponseDTOList(companies);
+        Assertions.assertEquals(2,companyResponseDTOS.size());
+    }
+
+    @Test
     void should_return_oocl_when_dto_to_entity_given_dto_with_name_oocl() {
         CompanyRequestDTO  companyRequestDTO= new CompanyRequestDTO("oocl");
         Company company = CompanyMapper.companyRequestDTOtoCompany(companyRequestDTO);
         Assertions.assertEquals("oocl",company.getName());
     }
+
+
 }
