@@ -16,8 +16,8 @@ public class CompanyMapper {
         return new CompanyResponseDTO(company.getName(), company.getEmployeeList());
     }
 
-    public static Company companyCompanyRequestDTOtoCompany(CompanyRequestDTO companyRequestDTO, List<Employee> employees) {
-        return new Company(companyRequestDTO.getName(),employees);
+    public static Company companyCompanyRequestDTOtoCompany(CompanyRequestDTO companyRequestDTO) {
+        return new Company(companyRequestDTO.getName());
     }
 
     public static List<CompanyResponseDTO> companyToCompanyResponseDTOList(List<Company> companies){

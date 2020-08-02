@@ -44,12 +44,7 @@ public class CompanyController {
 
     @PostMapping
     public void addCompany(@RequestBody CompanyRequestDTO company) {
-        List<Integer> employees = company.getEmployeeIdList();
-        List<Employee> employeeList =new ArrayList<>();
-        for (Integer employee : employees) {
-            employeeList.add(employeeService.findEmployeeById(employee));
-        }
-        Company saveCompany = CompanyMapper.companyCompanyRequestDTOtoCompany(company,employeeList);
+        Company saveCompany = CompanyMapper.companyCompanyRequestDTOtoCompany(company);
         companyService.addCompany(saveCompany);
     }
 
