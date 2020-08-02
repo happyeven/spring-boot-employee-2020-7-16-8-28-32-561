@@ -15,4 +15,5 @@ public interface CompanyService {
     void addCompany(Company company);
     List<Employee> getEmployeeFromCompany(Integer id);
     Page<Company> getAllCompany(Pageable pageable);
+    Company queryCompany(Integer id);
 }

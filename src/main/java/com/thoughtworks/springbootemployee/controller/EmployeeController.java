@@ -1,17 +1,17 @@
 package com.thoughtworks.springbootemployee.controller;
 
-import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
+
 import com.thoughtworks.springbootemployee.dto.EmployeeRequestDTO;
 import com.thoughtworks.springbootemployee.dto.EmployeeResponseDTO;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.mapper.EmployeeMapper;
+import com.thoughtworks.springbootemployee.service.CompanyService;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
@@ -24,7 +24,7 @@ public class EmployeeController {
     EmployeeService employeeService;
 
     @Autowired
-    CompanyRepository companyRepository;
+    CompanyService companyService;
 
     @GetMapping
     public List<Employee> getAllEmployees() {
@@ -44,7 +44,7 @@ public class EmployeeController {
 
     @PutMapping(path = "/{id}")
     public void updateEmployee(@PathVariable int id, @RequestBody  @Valid EmployeeRequestDTO employeeRequestDTO) {
-        Company saveCompany =companyRepository.findById(employeeRequestDTO.getCompanyId()).orElse(null);
+        Company saveCompany = companyService.queryCompany(id);
         Employee employee = EmployeeMapper.employeeRequestDtoToEmployee(employeeRequestDTO, saveCompany);
         employeeService.updateEmployee(employee, id);
     }
@@ -56,7 +56,7 @@ public class EmployeeController {
 
     @PostMapping
     public void addEmployee(@RequestBody @Valid EmployeeRequestDTO employeeRequestDTO) {
-        Company saveCompany =companyRepository.findById(employeeRequestDTO.getCompanyId()).orElse(null);
+        Company saveCompany = companyService.queryCompany(employeeRequestDTO.getCompanyId());
         employeeService.addEmployee(EmployeeMapper.employeeRequestDtoToEmployee(employeeRequestDTO,saveCompany));
     }
 
