@@ -59,11 +59,8 @@ public class CompanyIntegratorTest {
                 "}";
         mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(companyJson)).andExpect(status().isOk());
         List<Company> companies = companyRepository.findAll();
-        System.out.println(companies.size());
         String resultActions = mockMvc.perform(get("/companies")).andReturn().getResponse().getContentAsString();
-        System.out.println(resultActions);
         String s = "tw";
-
         Assertions.assertTrue(resultActions.contains(s));
     }
 
