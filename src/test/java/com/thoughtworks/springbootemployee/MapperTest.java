@@ -8,6 +8,9 @@ import com.thoughtworks.springbootemployee.mapper.EmployeeMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MapperTest {
@@ -69,4 +72,14 @@ public class MapperTest {
         Assertions.assertEquals(employee.getName(), employeeResponseDTO.getName());
     }
 
+    @Test
+    void should_return_2_when_employees_to_dtos_given_2_employee() {
+        Employee employee = new Employee(19, "dong", "male",null);
+        Employee employee1 = new Employee(19, "dong", "male",null);
+        ArrayList<Employee> employees = new ArrayList<>();
+        employees.add(employee);
+        employees.add(employee1);
+        List<EmployeeResponseDTO> employeeResponseDTOS = EmployeeMapper.employeesToEmployeeResponseDtos(employees);
+        Assertions.assertEquals(2,employeeResponseDTOS.size());
+    }
 }
