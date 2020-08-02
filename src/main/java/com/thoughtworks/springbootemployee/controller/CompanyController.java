@@ -36,7 +36,7 @@ public class CompanyController {
     }
 
     @PutMapping(path = "/{id}")
-    public void updateCompany(@PathVariable Integer id, @RequestBody CompanyRequestDTO companyRequestDTO) {
+    public void updateCompany(@PathVariable Integer id, @RequestBody @Valid CompanyRequestDTO companyRequestDTO) {
         Company saveCompany = CompanyMapper.companyCompanyRequestDTOtoCompany(companyRequestDTO);
         companyService.updateCompany(saveCompany, id);
     }
@@ -48,20 +48,21 @@ public class CompanyController {
     }
 
 
-    @GetMapping("/{id}/employees")
-    public List<String> getEmployeeFromCompany(@PathVariable Integer companyId) {
+    @GetMapping("/{companyId}/employees")
+    public List<String> getEmployeeFromCompany(@PathVariable int companyId) { //todo
         Company companyById = companyService.getCompanyById(companyId);
         return CompanyMapper.companyToCompanyResponseDTO(companyById).getEmployeeNameList();
     }
 
     @GetMapping
     public List<CompanyResponseDTO> getAllCompanyByPaged(@PageableDefault Pageable pageable, @RequestParam(defaultValue = "false") boolean unpaged) {
-        List<Company> companies;
+        Page<Company> allCompany;
         if (unpaged) {
-            companies = companyService.getAllCompany(Pageable.unpaged()).toList();
+            allCompany = companyService.getAllCompany(Pageable.unpaged());
+        }else {
+             allCompany = companyService.getAllCompany(pageable);
         }
-        companies = companyService.getAllCompany(pageable).toList();
-        return CompanyMapper.companyToCompanyResponseDTOList(companies);
+        return CompanyMapper.companyToCompanyResponseDTOList(allCompany.toList());
     }
 
 }
