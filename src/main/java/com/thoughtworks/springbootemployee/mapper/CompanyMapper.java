@@ -14,13 +14,13 @@ import java.util.List;
 public class CompanyMapper {
     public static CompanyResponseDTO companyToCompanyResponseDTO(Company company) {
         List<Employee> employeeList = company.getEmployeeList();
-        List<String> stringList = new ArrayList<>();
+        List<String> employeeNameList = new ArrayList<>();
         if (employeeList != null) {
             for (Employee employee : employeeList) {
-                stringList.add(employee.getName());
+                employeeNameList.add(employee.getName());
             }
         }
-        return new CompanyResponseDTO(company.getName(), stringList);
+        return new CompanyResponseDTO(company.getName(), employeeNameList);
     }
 
     public static Company companyCompanyRequestDTOtoCompany(CompanyRequestDTO companyRequestDTO) {
