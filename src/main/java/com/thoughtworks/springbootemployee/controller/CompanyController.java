@@ -36,21 +36,21 @@ public class CompanyController {
     }
 
     @PutMapping(path = "/{id}")
-    public void updateCompany(@PathVariable Integer id, @RequestBody CompanyRequestDTO company) {
-        Company saveCompany = CompanyMapper.companyCompanyRequestDTOtoCompany(company);
+    public void updateCompany(@PathVariable Integer id, @RequestBody CompanyRequestDTO companyRequestDTO) {
+        Company saveCompany = CompanyMapper.companyCompanyRequestDTOtoCompany(companyRequestDTO);
         companyService.updateCompany(saveCompany, id);
     }
 
     @PostMapping
-    public void addCompany(@RequestBody @Valid CompanyRequestDTO company) {
-        Company saveCompany = CompanyMapper.companyCompanyRequestDTOtoCompany(company);
+    public void addCompany(@RequestBody @Valid CompanyRequestDTO companyRequestDTO) {
+        Company saveCompany = CompanyMapper.companyCompanyRequestDTOtoCompany(companyRequestDTO);
         companyService.addCompany(saveCompany);
     }
 
 
     @GetMapping("/{id}/employees")
-    public List<String> getEmployeeFromCompany(@PathVariable Integer id) {
-        Company companyById = companyService.getCompanyById(id);
+    public List<String> getEmployeeFromCompany(@PathVariable Integer companyId) {
+        Company companyById = companyService.getCompanyById(companyId);
         return CompanyMapper.companyToCompanyResponseDTO(companyById).getEmployeeIdList();
     }
 
