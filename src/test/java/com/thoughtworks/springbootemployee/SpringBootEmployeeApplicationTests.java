@@ -146,8 +146,9 @@ class SpringBootEmployeeApplicationTests {
 		//given
 		EmployeeRequestDTO employeeRequestDTO = new EmployeeRequestDTO();
 		employeeRequestDTO.setName("david");
+		Company company =new Company("oocl");
 		//when
-		Employee employee = employeeRequestDTO.toEntity();
+		Employee employee = EmployeeMapper.employeeRequestDtoToEmployee(employeeRequestDTO,company);
 		//then
 		assertEquals("david",employee.getName());
 	}
