@@ -28,9 +28,6 @@ public class CompanyController {
     @Autowired
     EmployeeService employeeService;
 
-    @Autowired
-    CompanyRepository companyRepository;
-
 
     @DeleteMapping(path = "/{id}")
     public void deleteCompany(@PathVariable Integer id) {
