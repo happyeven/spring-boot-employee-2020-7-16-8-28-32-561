@@ -30,9 +30,8 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void deleteCompany(Integer id) {
-        if (companyRepository.findById(id).orElseThrow(CompanyNotFoundException::new)!=null){
-            companyRepository.deleteById(id);
-        }
+        getCompanyById(id);
+        companyRepository.deleteById(id);
     }
 
     @Override
@@ -49,7 +48,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public List<Employee> getEmployeeFromCompany(Integer id) {
-        companyRepository.findById(id).orElseThrow(CompanyNotFoundException::new);
+        getCompanyById(id);
         return companyRepository.findById(id).get().getEmployeeList();
     }
 
