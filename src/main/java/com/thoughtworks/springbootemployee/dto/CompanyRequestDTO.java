@@ -16,6 +16,10 @@ public class CompanyRequestDTO {
         this.name = name;
     }
 
+    public CompanyRequestDTO(@NotBlank String name) {
+        this.name = name;
+    }
+
     public CompanyRequestDTO() {
     }
 }
