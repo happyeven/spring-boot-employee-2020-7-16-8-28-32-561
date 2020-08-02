@@ -141,6 +141,15 @@ public class EmployeeIntegratorTest {
     }
 
     @Test
-    void shoud_return_cant_find_the_employee_when_find_employee_by_id() {
+    void should_return_cant_find_the_employee_when_find_employee_by_id() throws Exception {
+        String employee = "{\n" +
+                "                    \"companyId\": 3,\n" +
+                "                    \"age\": 18,\n" +
+                "                    \"name\": \"david\",\n" +
+                "                    \"gender\": \"male\"\n" +
+                "}";
+        mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).content(employee));
+        int notFoundId = 1000;
+        mockMvc.perform(get("/employees/"+notFoundId)).andExpect(status().isNotFound());
     }
 }
