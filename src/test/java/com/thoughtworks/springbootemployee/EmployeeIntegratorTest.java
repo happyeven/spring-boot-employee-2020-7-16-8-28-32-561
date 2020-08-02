@@ -76,10 +76,8 @@ public class EmployeeIntegratorTest {
         employeeRepository.save(employeeThree);
         String contentAsString = mockMvc.perform(get("/employees").param("page", "4").param("size", "2"))
                 .andReturn().getResponse().getContentAsString();
-        System.out.println(contentAsString);
-        JSONObject jsonObject = JSONArray.parseObject(contentAsString);
-        List<Employee> employees = JSONArray.parseArray(jsonObject.get("content").toString(), Employee.class);
-        Assertions.assertEquals(0, employees.size());
+        LinkedList<Employee> linkedList = JSON.parseObject(contentAsString, LinkedList.class);
+        Assertions.assertEquals(0, linkedList.size());
     }
 
     @Test
