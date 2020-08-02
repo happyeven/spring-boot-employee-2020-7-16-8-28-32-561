@@ -1,9 +1,11 @@
 package com.thoughtworks.springbootemployee;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.entity.Company;
+import com.thoughtworks.springbootemployee.entity.Employee;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -108,8 +111,7 @@ public class CompanyIntegratorTest {
                 "}";
         mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(saveCompanyJson)).andExpect(status().isOk());
         String contentAsString = mockMvc.perform(get("/companies").param("page", "0").param("size","1")).andReturn().getResponse().getContentAsString();
-        JSONObject jsonObject = JSONArray.parseObject(contentAsString);
-        List<Company> companies = JSONArray.parseArray(jsonObject.get("content").toString(), Company.class);
+        LinkedList<Employee> companies = JSON.parseObject(contentAsString, LinkedList.class);
         Assertions.assertEquals(1,companies.size());
     }
     @Test
@@ -123,8 +125,7 @@ public class CompanyIntegratorTest {
                 "}";
         mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(saveCompanyJson1)).andExpect(status().isOk());
         String contentAsString = mockMvc.perform(get("/companies").param("page", "1").param("size","1")).andReturn().getResponse().getContentAsString();
-        JSONObject jsonObject = JSONArray.parseObject(contentAsString);
-        List<Company> companies = JSONArray.parseArray(jsonObject.get("content").toString(), Company.class);
+        LinkedList<Employee> companies = JSON.parseObject(contentAsString, LinkedList.class);
         Assertions.assertEquals(1,companies.size());
     }
 }
