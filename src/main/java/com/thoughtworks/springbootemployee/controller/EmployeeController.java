@@ -15,6 +15,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/employees")
@@ -33,8 +34,11 @@ public class EmployeeController {
 
 
     @GetMapping(params = {"size","page"})
-    public Page<Employee> getAllEmployees(@PageableDefault(size = 1) Pageable pageable) {
-        return employeeService.getAllEmployee(pageable);
+    public List<EmployeeResponseDTO> getAllEmployees(@PageableDefault(size = 1) Pageable pageable) {
+        List<EmployeeResponseDTO> employeeResponseDTOS = employeeService.getAllEmployee(pageable)
+                .stream().map(employee -> EmployeeMapper.employeeToEmployeeResponse(employee))
+                .collect(Collectors.toList());
+        return employeeResponseDTOS;
     }
 
     @DeleteMapping("/{id}")
