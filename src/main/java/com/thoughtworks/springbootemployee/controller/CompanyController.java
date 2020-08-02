@@ -38,8 +38,9 @@ public class CompanyController {
     }
 
     @PutMapping(path = "/{id}")
-    public void updateCompany(@PathVariable Integer id, @RequestBody Company company) {
-        companyService.updateCompany(company, id);
+    public void updateCompany(@PathVariable Integer id, @RequestBody CompanyRequestDTO company) {
+        Company saveCompany = CompanyMapper.companyCompanyRequestDTOtoCompany(company);
+        companyService.updateCompany(saveCompany, id);
     }
 
     @PostMapping
