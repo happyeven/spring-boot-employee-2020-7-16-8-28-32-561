@@ -65,7 +65,7 @@ public class CompanyIntegratorTest {
     }
 
     @Test
-    void should_get_1_company_when_get_all_company_given_1_company_db() throws Exception {
+    void should_get_1_company_when_get_all_company_given_1_company_db() throws Exception {//TODO
         String companyJson = "{\n" +
                 "    \"name\": \"tw\"\n" +
                 "}";

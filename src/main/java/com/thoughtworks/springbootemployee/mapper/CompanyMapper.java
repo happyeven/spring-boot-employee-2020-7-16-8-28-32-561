@@ -16,7 +16,7 @@ public class CompanyMapper {
     public static CompanyResponseDTO companyToCompanyResponseDTO(Company company) {
         List<Employee> employeeList = company.getEmployeeList();
         List<String> employeeNameList = new ArrayList<>();
-        if (employeeList != null) {
+        if (employeeList != null) {//TODO
             employeeNameList = employeeList.stream()
                     .map(employee -> employee.getName())
                     .collect(Collectors.toList());

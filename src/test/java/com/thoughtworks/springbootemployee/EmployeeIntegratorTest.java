@@ -86,7 +86,7 @@ public class EmployeeIntegratorTest {
         employeeRepository.save(employeeOne);
         String contentAsString = mockMvc.perform(get("/employees").param("gender", "male")).andReturn().getResponse().getContentAsString();
         boolean isHasFemale = contentAsString.contains("female");
-        Assertions.assertEquals(false, isHasFemale);
+        Assertions.assertEquals(false, isHasFemale);//TODO
     }
 
     @Test
@@ -136,7 +136,7 @@ public class EmployeeIntegratorTest {
         int davidId = employeeRepository.findByName("david").stream().findFirst().get().getId();
         mockMvc.perform(delete("/employees/"+davidId)).andExpect(status().isOk());
         boolean isHasDavid = mockMvc.perform(get("/employees")).andReturn().getResponse().getContentAsString().contains("david");
-        Assertions.assertEquals(false,isHasDavid);
+        Assertions.assertEquals(false,isHasDavid);//TODO
 
     }
 
